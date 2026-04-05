@@ -12,5 +12,7 @@
   <p>
     <img src="./public/images/porsche-911-gt2-rs.png" alt="Silver Porsche 911 GT2 RS side view" width="240" />
   </p>
-  <p><code>Join</code></p>
+  <p>
+    <a href="https://join.slack.com/t/modernfaber/shared_invite/zt-3uentlyli-5_PyQMILdRjEEgp3wP7Q4w"><code>Join</code></a>
+  </p>
 </div>

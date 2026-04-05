@@ -1,13 +1,19 @@
+---
+const joinUrl =
+  "https://join.slack.com/t/modernfaber/shared_invite/zt-3uentlyli-5_PyQMILdRjEEgp3wP7Q4w";
+---
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Join | Modern Faber</title>
+    <title>Join Slack | Modern Faber</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta http-equiv="refresh" content={`0;url=${joinUrl}`} />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap");
 
@@ -83,9 +89,9 @@
   </head>
   <body>
     <main>
-      <h1>You’re in.</h1>
-      <p>This page is just a placeholder target for the landing screen’s join button.</p>
-      <a href="/">Back</a>
+      <h1>Joining Slack...</h1>
+      <p>If the redirect does not open automatically, use the link below.</p>
+      <a href={joinUrl} target="_blank" rel="noreferrer">Join</a>
     </main>
   </body>
 </html>
