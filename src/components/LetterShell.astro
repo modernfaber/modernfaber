@@ -29,7 +29,7 @@ const navItems = [
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <style>
+    <style is:global>
       @import url("https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
 
       :root {
@@ -68,8 +68,8 @@ const navItems = [
 
       .header {
         display: grid;
-        gap: 14px;
-        margin-bottom: 30px;
+        gap: 12px;
+        margin-bottom: 24px;
       }
 
       .eyebrow,
@@ -91,11 +91,12 @@ const navItems = [
 
       .title {
         margin: 0;
-        max-width: 9ch;
-        font-size: clamp(3rem, 9vw, 5rem);
-        line-height: 0.9;
+        max-width: none;
+        font-size: clamp(2.8rem, 7vw, 4.35rem);
+        line-height: 0.94;
         font-weight: 600;
         letter-spacing: -0.04em;
+        text-wrap: balance;
       }
 
       .meta {
@@ -146,11 +147,12 @@ const navItems = [
 
       .section-title {
         margin: 0;
-        max-width: 12ch;
-        font-size: clamp(2.3rem, 6vw, 3.7rem);
-        line-height: 0.94;
+        max-width: none;
+        font-size: clamp(2rem, 4.8vw, 3rem);
+        line-height: 0.98;
         font-weight: 600;
         letter-spacing: -0.04em;
+        text-wrap: balance;
       }
 
       .section-copy {
@@ -394,7 +396,6 @@ const navItems = [
         }
 
         .title {
-          max-width: none;
           font-size: clamp(2.7rem, 15vw, 4rem);
         }
 
@@ -407,7 +408,6 @@ const navItems = [
         }
 
         .section-title {
-          max-width: none;
           font-size: clamp(2rem, 10vw, 3rem);
         }
 
