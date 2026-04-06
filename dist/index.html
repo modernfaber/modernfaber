@@ -264,6 +264,57 @@
         line-height: 1.6;
       }
 
+      .signature-row {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+      }
+
+      .signature-frame {
+        position: relative;
+        width: min(100%, 286px);
+        aspect-ratio: 286 / 254;
+        overflow: hidden;
+        border-radius: 6px;
+        background: linear-gradient(180deg, #16110d 0%, #050505 100%);
+        box-shadow: 0 14px 34px rgba(41, 25, 13, 0.24);
+        user-select: none;
+        -webkit-user-select: none;
+      }
+
+      .signature-asset {
+        position: absolute;
+        inset: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+        pointer-events: none;
+        user-select: none;
+        -webkit-user-drag: none;
+        -webkit-user-select: none;
+      }
+
+      .signature-video {
+        background: linear-gradient(180deg, #16110d 0%, #050505 100%);
+        transition: opacity 180ms ease, visibility 180ms ease;
+      }
+
+      .signature-video.is-complete {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .signature-image {
+        opacity: 0;
+        transition: opacity 180ms ease;
+      }
+
+      .signature-image.is-visible {
+        opacity: 1;
+      }
+
       @keyframes settle {
         from {
           opacity: 0;
@@ -429,8 +480,117 @@
             </a>
             <p class="link-note">Show up with something real. Do it again next week.</p>
           </div>
+          <div class="signature-row" aria-hidden="true">
+            <div class="signature-frame">
+              <video
+                id="signature-video"
+                class="signature-asset signature-video"
+                muted
+                playsinline
+                preload="metadata"
+                poster="/images/autograph-modern-faber.png"
+                disablepictureinpicture
+                disableremoteplayback
+                tabindex="-1"
+              >
+                <source src="/images/autograph-modern-faber.mp4" type="video/mp4" />
+              </video>
+              <img
+                id="signature-image"
+                class="signature-asset signature-image"
+                src="/images/autograph-modern-faber.png"
+                alt=""
+                draggable="false"
+              />
+            </div>
+          </div>
         </footer>
       </article>
     </main>
+    <script>
+      (() => {
+        const video = document.getElementById("signature-video");
+        const image = document.getElementById("signature-image");
+
+        if (!(video instanceof HTMLVideoElement) || !(image instanceof HTMLImageElement)) {
+          return;
+        }
+
+        let hasCompleted = false;
+        let hasStarted = false;
+        let observer;
+
+        const showImage = () => {
+          if (hasCompleted) {
+            return;
+          }
+
+          hasCompleted = true;
+          video.pause();
+          video.classList.add("is-complete");
+          image.classList.add("is-visible");
+
+          if (observer) {
+            observer.disconnect();
+          }
+        };
+
+        const playSignature = () => {
+          if (hasCompleted) {
+            return;
+          }
+
+          const playPromise = video.play();
+
+          if (playPromise && typeof playPromise.catch === "function") {
+            playPromise.catch(() => {
+              showImage();
+            });
+          }
+        };
+
+        video.controls = false;
+        video.addEventListener("ended", showImage, { once: true });
+        video.addEventListener("error", showImage, { once: true });
+
+        if (!("IntersectionObserver" in window)) {
+          playSignature();
+          return;
+        }
+
+        observer = new IntersectionObserver(
+          (entries) => {
+            const entry = entries[0];
+
+            if (!entry || hasCompleted) {
+              return;
+            }
+
+            if (entry.isIntersecting) {
+              hasStarted = true;
+              playSignature();
+              return;
+            }
+
+            if (hasStarted && !video.paused) {
+              video.pause();
+            }
+          },
+          { threshold: 0.65 }
+        );
+
+        observer.observe(video);
+
+        window.addEventListener(
+          "pagehide",
+          () => {
+            if (observer) {
+              observer.disconnect();
+            }
+          },
+          { once: true }
+        );
+      })();
+    </script>
   </body>
 </html>
