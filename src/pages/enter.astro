@@ -17,16 +17,10 @@ import { joinUrl } from "../lib/site";
       @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
 
       :root {
-        --canvas-top: #efe4d1;
-        --canvas-bottom: #cfb190;
-        --paper-top: rgba(255, 253, 247, 0.94);
-        --paper-bottom: rgba(244, 235, 219, 0.98);
-        --ink: #24180f;
-        --muted: #6f5741;
-        --rule: rgba(98, 73, 48, 0.22);
-        --seal-top: #b56737;
-        --seal-bottom: #733b1e;
-        --shadow: rgba(74, 47, 24, 0.24);
+        --bg: #ffffff;
+        --ink: #111111;
+        --muted: #6b6b6b;
+        --rule: #e8e8e8;
       }
 
       * {
@@ -41,19 +35,12 @@ import { joinUrl } from "../lib/site";
         padding: 24px;
         color: var(--ink);
         font-family: "Cormorant Garamond", Georgia, serif;
-        background:
-          radial-gradient(circle at top, rgba(255, 249, 239, 0.9), transparent 40%),
-          linear-gradient(180deg, var(--canvas-top) 0%, var(--canvas-bottom) 100%);
+        background: var(--bg);
       }
 
       main {
         width: min(100%, 560px);
-        padding: clamp(28px, 5vw, 48px);
-        background: linear-gradient(180deg, var(--paper-top), var(--paper-bottom));
-        border: 1px solid rgba(92, 66, 38, 0.18);
-        box-shadow:
-          0 24px 70px var(--shadow),
-          inset 0 1px 0 rgba(255, 255, 255, 0.82);
+        padding: clamp(24px, 5vw, 40px);
       }
 
       p,
@@ -70,13 +57,13 @@ import { joinUrl } from "../lib/site";
         margin: 0 0 12px;
         font-size: 0.74rem;
         font-weight: 500;
-        letter-spacing: 0.32em;
+        letter-spacing: 0.22em;
         text-transform: uppercase;
       }
 
       h1 {
         margin: 0;
-        font-size: clamp(2.7rem, 9vw, 4.2rem);
+        font-size: clamp(2.5rem, 8vw, 3.8rem);
         line-height: 0.9;
         font-weight: 600;
         letter-spacing: -0.04em;
@@ -85,15 +72,15 @@ import { joinUrl } from "../lib/site";
       .rule {
         height: 1px;
         margin: 22px 0;
-        background: linear-gradient(90deg, transparent, var(--rule) 14%, var(--rule) 86%, transparent);
+        background: var(--rule);
       }
 
       p {
         margin: 0;
-        font-size: 0.82rem;
+        font-size: 0.9rem;
         line-height: 1.8;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        text-transform: none;
       }
 
       a {
@@ -104,16 +91,22 @@ import { joinUrl } from "../lib/site";
         min-width: 176px;
         min-height: 54px;
         padding: 14px 22px;
-        border: 1px solid rgba(122, 74, 38, 0.35);
+        border: 1px solid var(--ink);
         border-radius: 999px;
-        background: radial-gradient(circle at 30% 30%, var(--seal-top), var(--seal-bottom));
-        box-shadow: 0 14px 32px rgba(91, 41, 16, 0.22);
-        color: #fff9f2;
+        background: var(--bg);
+        color: var(--ink);
         text-decoration: none;
         font-size: 0.8rem;
         font-weight: 600;
-        letter-spacing: 0.18em;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
+        transition: background 160ms ease, color 160ms ease;
+      }
+
+      a:hover,
+      a:focus-visible {
+        background: var(--ink);
+        color: var(--bg);
       }
     </style>
   </head>
