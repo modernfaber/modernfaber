@@ -1,0 +1,878 @@
+---
+type ViewKey = "manifesto" | "policy" | "contact";
+
+interface Props {
+  currentView: ViewKey;
+  description: string;
+  heroTitle: string;
+  meta?: string[];
+  title: string;
+}
+
+const { currentView, description, heroTitle, meta = [], title } = Astro.props;
+
+const navItems = [
+  { key: "manifesto", href: "/", label: "Manifesto" },
+  { key: "policy", href: "/policy", label: "Policy" },
+  { key: "contact", href: "/contact", label: "Contact" },
+] as const;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Qwigley&display=swap");
+
+      :root {
+        --canvas-top: #efe4d1;
+        --canvas-bottom: #cfb190;
+        --paper-top: rgba(255, 253, 247, 0.94);
+        --paper-bottom: rgba(244, 235, 219, 0.98);
+        --ink: #24180f;
+        --muted: #6f5741;
+        --rule: rgba(98, 73, 48, 0.22);
+        --seal-top: #b56737;
+        --seal-bottom: #733b1e;
+        --shadow: rgba(74, 47, 24, 0.24);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        color-scheme: light;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        font-family: "Cormorant Garamond", Georgia, serif;
+        background:
+          radial-gradient(circle at top, rgba(255, 249, 239, 0.9), transparent 40%),
+          linear-gradient(180deg, var(--canvas-top) 0%, var(--canvas-bottom) 100%);
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.18) 14%, transparent 28%),
+          repeating-linear-gradient(
+            135deg,
+            rgba(92, 66, 38, 0.035) 0 2px,
+            transparent 2px 14px
+          );
+      }
+
+      .page {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: clamp(24px, 4vw, 56px);
+      }
+
+      .letter {
+        position: relative;
+        width: min(100%, 860px);
+        padding: clamp(32px, 6vw, 76px);
+        overflow: hidden;
+        background:
+          linear-gradient(180deg, var(--paper-top), var(--paper-bottom)),
+          repeating-linear-gradient(
+            180deg,
+            rgba(111, 83, 58, 0.04) 0 1px,
+            transparent 1px 36px
+          );
+        border: 1px solid rgba(92, 66, 38, 0.18);
+        box-shadow:
+          0 30px 90px var(--shadow),
+          inset 0 1px 0 rgba(255, 255, 255, 0.82);
+        animation: settle 850ms cubic-bezier(0.22, 1, 0.36, 1) both;
+      }
+
+      .letter::before {
+        content: "";
+        position: absolute;
+        inset: 16px;
+        border: 1px solid rgba(92, 66, 38, 0.11);
+        pointer-events: none;
+      }
+
+      .letter::after {
+        content: "MF";
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        width: 72px;
+        height: 72px;
+        display: grid;
+        place-items: center;
+        border-radius: 999px;
+        border: 1px solid rgba(122, 74, 38, 0.35);
+        background: radial-gradient(
+          circle at 30% 30%,
+          rgba(255, 255, 255, 0.72),
+          rgba(167, 111, 70, 0.18)
+        );
+        color: rgba(122, 74, 38, 0.8);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        transform: rotate(11deg);
+      }
+
+      .header {
+        display: grid;
+        gap: 18px;
+        margin-bottom: 38px;
+      }
+
+      .eyebrow,
+      .meta,
+      .footer-note,
+      .link-note,
+      .section-label,
+      .policy-number {
+        font-family: "IBM Plex Mono", monospace;
+      }
+
+      .eyebrow {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.74rem;
+        font-weight: 500;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+      }
+
+      .title {
+        margin: 0;
+        max-width: 9ch;
+        font-size: clamp(3.3rem, 10vw, 6rem);
+        line-height: 0.86;
+        font-weight: 600;
+        letter-spacing: -0.04em;
+      }
+
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 24px;
+        color: var(--muted);
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .rule {
+        height: 1px;
+        margin: 0 0 14px;
+        background: linear-gradient(90deg, transparent, var(--rule) 12%, var(--rule) 88%, transparent);
+      }
+
+      .document {
+        display: grid;
+        gap: 54px;
+      }
+
+      .doc-section {
+        display: grid;
+        gap: 26px;
+      }
+
+      .doc-section + .doc-section {
+        padding-top: 44px;
+        border-top: 1px solid var(--rule);
+      }
+
+      .section-head {
+        display: grid;
+        gap: 10px;
+      }
+
+      .section-label {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.74rem;
+        font-weight: 500;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+      }
+
+      .section-title {
+        margin: 0;
+        max-width: 12ch;
+        font-size: clamp(2.3rem, 6vw, 3.7rem);
+        line-height: 0.94;
+        font-weight: 600;
+        letter-spacing: -0.04em;
+      }
+
+      .section-copy {
+        margin: 0;
+        max-width: 34ch;
+        color: rgba(36, 24, 15, 0.9);
+        font-size: clamp(1.2rem, 2.2vw, 1.42rem);
+        line-height: 1.5;
+        text-wrap: pretty;
+      }
+
+      .body {
+        display: grid;
+        gap: 28px;
+      }
+
+      .stanza {
+        margin: 0;
+        max-width: 34ch;
+        font-size: clamp(1.35rem, 2.6vw, 1.84rem);
+        line-height: 1.58;
+        text-wrap: pretty;
+      }
+
+      .dropcap {
+        float: left;
+        padding-top: 8px;
+        padding-right: 12px;
+        font-size: 4.6rem;
+        line-height: 0.78;
+        font-weight: 600;
+      }
+
+      .policy-sections {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 24px;
+      }
+
+      .policy-section {
+        display: grid;
+        grid-template-columns: 64px minmax(0, 1fr);
+        gap: 18px;
+        align-items: start;
+        padding-top: 18px;
+        border-top: 1px solid rgba(98, 73, 48, 0.14);
+      }
+
+      .policy-section:first-child {
+        padding-top: 0;
+        border-top: 0;
+      }
+
+      .policy-number {
+        color: var(--muted);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+      }
+
+      .policy-body {
+        display: grid;
+        gap: 12px;
+      }
+
+      .policy-title {
+        margin: 0;
+        font-size: clamp(1.55rem, 3vw, 1.9rem);
+        line-height: 1.05;
+        font-weight: 600;
+      }
+
+      .policy-text {
+        margin: 0;
+        max-width: 38ch;
+        font-size: clamp(1.12rem, 2vw, 1.28rem);
+        line-height: 1.55;
+        text-wrap: pretty;
+      }
+
+      .policy-list,
+      .policy-sublist,
+      .join-list {
+        margin: 0;
+        padding-left: 1.15em;
+        max-width: 40ch;
+        font-size: clamp(1.08rem, 1.9vw, 1.22rem);
+        line-height: 1.58;
+      }
+
+      .policy-list,
+      .policy-sublist {
+        display: grid;
+        gap: 8px;
+      }
+
+      .policy-sublist {
+        padding-left: 1.05em;
+      }
+
+      .policy-callout {
+        margin: 0;
+        max-width: 33ch;
+        padding: 14px 16px;
+        border-left: 2px solid rgba(122, 74, 38, 0.42);
+        background: rgba(255, 255, 255, 0.36);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.8rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        line-height: 1.75;
+        text-transform: uppercase;
+      }
+
+      .join-panel {
+        display: grid;
+        gap: 22px;
+      }
+
+      .footer {
+        margin-top: 56px;
+        padding-top: 26px;
+        border-top: 1px solid var(--rule);
+        display: grid;
+        gap: 18px;
+      }
+
+      .footer-note {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.73rem;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .footer-copy {
+        margin: 0;
+        max-width: 29ch;
+        font-size: clamp(1.22rem, 2.3vw, 1.55rem);
+        line-height: 1.5;
+        text-wrap: pretty;
+      }
+
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        align-items: center;
+      }
+
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 176px;
+        min-height: 54px;
+        padding: 14px 22px;
+        border: 1px solid rgba(122, 74, 38, 0.35);
+        border-radius: 999px;
+        background: radial-gradient(circle at 30% 30%, var(--seal-top), var(--seal-bottom));
+        box-shadow: 0 14px 32px rgba(91, 41, 16, 0.22);
+        color: #fff9f2;
+        text-decoration: none;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        transition:
+          transform 180ms ease,
+          box-shadow 180ms ease,
+          filter 180ms ease;
+      }
+
+      .cta:hover,
+      .cta:focus-visible {
+        transform: translateY(-2px);
+        box-shadow: 0 20px 36px rgba(91, 41, 16, 0.28);
+        filter: saturate(1.08);
+      }
+
+      .cta:focus-visible {
+        outline: 2px solid rgba(122, 74, 38, 0.22);
+        outline-offset: 4px;
+      }
+
+      .link-note {
+        margin: 0;
+        max-width: 29ch;
+        color: var(--muted);
+        font-size: 0.76rem;
+        line-height: 1.6;
+      }
+
+      .bottom-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: flex-end;
+      }
+
+      .tab-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 18px 10px;
+        border: 1px solid rgba(122, 74, 38, 0.2);
+        border-radius: 14px 14px 0 0;
+        background: rgba(249, 242, 231, 0.6);
+        color: var(--muted);
+        text-decoration: none;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.74rem;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        transition:
+          transform 180ms ease,
+          background 180ms ease,
+          color 180ms ease,
+          border-color 180ms ease;
+      }
+
+      .tab-link:hover,
+      .tab-link:focus-visible {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.82);
+        color: var(--ink);
+        border-color: rgba(122, 74, 38, 0.32);
+      }
+
+      .tab-link:focus-visible {
+        outline: 2px solid rgba(122, 74, 38, 0.22);
+        outline-offset: 4px;
+      }
+
+      .tab-link.is-current,
+      .tab-link[aria-current="page"] {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(248, 236, 219, 0.92));
+        color: var(--ink);
+        border-color: rgba(122, 74, 38, 0.34);
+        transform: translateY(-3px);
+      }
+
+      .signature-row {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+      }
+
+      .signature-frame {
+        position: relative;
+        width: min(100%, 286px);
+        aspect-ratio: 286 / 254;
+        overflow: hidden;
+        border-radius: 6px;
+        background: linear-gradient(180deg, #16110d 0%, #050505 100%);
+        box-shadow: 0 14px 34px rgba(41, 25, 13, 0.24);
+        user-select: none;
+        -webkit-user-select: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-inline: 10px;
+      }
+
+      .signature-mark {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+        pointer-events: none;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+
+      .signature-script {
+        font-family: "Qwigley", "Cormorant Garamond", cursive;
+        font-size: 106px;
+        font-weight: 400;
+        letter-spacing: 0.012em;
+      }
+
+      .signature-script-shadow {
+        fill: rgba(255, 246, 235, 0.16);
+        filter: url(#signature-soft-glow);
+      }
+
+      .signature-script-stroke {
+        fill: none;
+        stroke: rgba(255, 249, 244, 0.9);
+        stroke-width: 1.6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        paint-order: stroke fill;
+      }
+
+      .signature-script-fill {
+        fill: rgba(255, 249, 244, 0.97);
+      }
+
+      .signature-reveal-fill {
+        transform: scaleX(1);
+        transform-box: fill-box;
+        transform-origin: left center;
+      }
+
+      .signature-reveal-edge,
+      .signature-sheen {
+        transform: translateX(358px);
+        transform-box: fill-box;
+      }
+
+      .signature-sheen {
+        opacity: 0;
+        fill: rgba(255, 249, 242, 0.9);
+      }
+
+      .signature-mark.is-primed .signature-reveal-fill {
+        transform: scaleX(0);
+      }
+
+      .signature-mark.is-primed .signature-reveal-edge {
+        transform: translateX(0);
+      }
+
+      .signature-mark.is-primed .signature-sheen {
+        opacity: 0.7;
+        transform: translateX(0);
+      }
+
+      .signature-mark.is-animating .signature-reveal-fill {
+        animation: signature-reveal 2400ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+
+      .signature-mark.is-animating .signature-reveal-edge {
+        animation: signature-pass 2400ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+
+      .signature-mark.is-animating .signature-sheen {
+        animation: signature-sheen-pass 2400ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+
+      @keyframes signature-reveal {
+        from {
+          transform: scaleX(0);
+        }
+
+        to {
+          transform: scaleX(1);
+        }
+      }
+
+      @keyframes signature-pass {
+        from {
+          transform: translateX(0);
+        }
+
+        to {
+          transform: translateX(358px);
+        }
+      }
+
+      @keyframes signature-sheen-pass {
+        0% {
+          opacity: 0.7;
+          transform: translateX(0) scaleX(1);
+        }
+
+        82% {
+          opacity: 0.54;
+        }
+
+        100% {
+          opacity: 0;
+          transform: translateX(358px) scaleX(0.96);
+        }
+      }
+
+      @keyframes settle {
+        from {
+          opacity: 0;
+          transform: translateY(22px) rotate(0.45deg);
+        }
+
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .letter,
+        .cta {
+          animation: none;
+          transition: none;
+        }
+      }
+
+      @media (max-width: 720px) {
+        body::before {
+          display: none;
+        }
+
+        .letter {
+          padding: 28px 22px 30px;
+        }
+
+        .letter::before {
+          inset: 12px;
+        }
+
+        .letter::after {
+          top: 18px;
+          right: 18px;
+          width: 54px;
+          height: 54px;
+          font-size: 0.62rem;
+        }
+
+        .title {
+          max-width: none;
+          font-size: clamp(2.8rem, 15vw, 4.2rem);
+        }
+
+        .document {
+          gap: 42px;
+        }
+
+        .doc-section + .doc-section {
+          padding-top: 34px;
+        }
+
+        .section-title {
+          max-width: none;
+          font-size: clamp(2rem, 10vw, 3rem);
+        }
+
+        .stanza,
+        .footer-copy,
+        .section-copy,
+        .policy-text,
+        .policy-list,
+        .policy-sublist,
+        .join-list {
+          max-width: none;
+        }
+
+        .stanza {
+          font-size: clamp(1.18rem, 5.2vw, 1.42rem);
+        }
+
+        .policy-section {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+
+        .tab-link {
+          flex: 1 1 100%;
+          border-radius: 12px;
+        }
+
+        .signature-row {
+          justify-content: flex-start;
+        }
+
+        .dropcap {
+          padding-top: 4px;
+          padding-right: 10px;
+          font-size: 3.6rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <article class="letter">
+        <header class="header">
+          <p class="eyebrow">Modern Faber</p>
+          <h1 class="title">{heroTitle}</h1>
+          {meta.length > 0 && (
+            <div class="meta">
+              {meta.map((item) => <span>{item}</span>)}
+            </div>
+          )}
+        </header>
+
+        <div class="rule" aria-hidden="true"></div>
+
+        <div class="document">
+          <slot />
+        </div>
+
+        <footer class="footer">
+          <p class="footer-note">Page Navigation</p>
+          <nav class="bottom-nav" aria-label="Page navigation">
+            {
+              navItems.map((item) => (
+                <a
+                  class:list={["tab-link", currentView === item.key && "is-current"]}
+                  href={item.href}
+                  aria-current={currentView === item.key ? "page" : undefined}
+                >
+                  {item.label}
+                </a>
+              ))
+            }
+          </nav>
+
+          <div class="signature-row" aria-hidden="true">
+            <div class="signature-frame">
+              <svg
+                id="signature-mark"
+                class="signature-mark"
+                viewBox="0 0 286 254"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <defs>
+                  <linearGradient id="signature-edge-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+                    <stop offset="48%" stop-color="#ffffff" stop-opacity="0.98" />
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0.16" />
+                  </linearGradient>
+                  <filter id="signature-soft-glow" x="-40%" y="-40%" width="180%" height="180%">
+                    <feGaussianBlur stdDeviation="4.8" />
+                  </filter>
+                  <filter id="signature-sheen-blur" x="-120%" y="-40%" width="340%" height="180%">
+                    <feGaussianBlur stdDeviation="10" />
+                  </filter>
+                  <mask id="signature-write-mask" maskUnits="userSpaceOnUse">
+                    <rect x="0" y="0" width="286" height="254" fill="black"></rect>
+                    <rect
+                      class="signature-reveal-fill"
+                      x="0"
+                      y="0"
+                      width="286"
+                      height="254"
+                      fill="white"
+                    ></rect>
+                    <rect
+                      class="signature-reveal-edge"
+                      x="-72"
+                      y="0"
+                      width="88"
+                      height="254"
+                      fill="url(#signature-edge-gradient)"
+                    ></rect>
+                  </mask>
+                </defs>
+
+                <text class="signature-script signature-script-shadow" x="16" y="148" textLength="252" lengthAdjust="spacingAndGlyphs">Modern Faber</text>
+
+                <rect
+                  class="signature-sheen"
+                  x="-90"
+                  y="46"
+                  width="112"
+                  height="146"
+                  rx="44"
+                  fill="#ffffff"
+                  filter="url(#signature-sheen-blur)"
+                ></rect>
+
+                <g mask="url(#signature-write-mask)">
+                  <text class="signature-script signature-script-stroke" x="16" y="148" textLength="252" lengthAdjust="spacingAndGlyphs">Modern Faber</text>
+                  <text class="signature-script signature-script-fill" x="16" y="148" textLength="252" lengthAdjust="spacingAndGlyphs">Modern Faber</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </footer>
+      </article>
+    </main>
+
+    <script is:inline>
+      (() => {
+        const signature = document.getElementById("signature-mark");
+
+        if (!(signature instanceof SVGSVGElement)) {
+          return;
+        }
+
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+        const animationDuration = 2400;
+        let hasStarted = false;
+        let observer;
+        let completionTimer;
+
+        if (prefersReducedMotion.matches) {
+          signature.classList.add("is-complete");
+          return;
+        }
+
+        signature.classList.add("is-primed");
+
+        const startAnimation = () => {
+          if (hasStarted) {
+            return;
+          }
+
+          hasStarted = true;
+          signature.classList.add("is-animating");
+          completionTimer = window.setTimeout(() => {
+            signature.classList.remove("is-primed");
+            signature.classList.add("is-complete");
+          }, animationDuration);
+
+          if (observer) {
+            observer.disconnect();
+          }
+        };
+
+        if (!("IntersectionObserver" in window)) {
+          startAnimation();
+          return;
+        }
+
+        observer = new IntersectionObserver(
+          (entries) => {
+            const entry = entries[0];
+
+            if (!entry || hasStarted) {
+              return;
+            }
+
+            if (entry.isIntersecting) {
+              startAnimation();
+            }
+          },
+          { threshold: 0.65 }
+        );
+
+        observer.observe(signature);
+
+        window.addEventListener(
+          "pagehide",
+          () => {
+            if (observer) {
+              observer.disconnect();
+            }
+
+            if (completionTimer) {
+              window.clearTimeout(completionTimer);
+            }
+          },
+          { once: true }
+        );
+      })();
+    </script>
+  </body>
+</html>

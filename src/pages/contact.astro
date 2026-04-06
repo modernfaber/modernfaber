@@ -1,0 +1,38 @@
+---
+import LetterShell from "../components/LetterShell.astro";
+import { joinUrl } from "../lib/site";
+---
+
+<LetterShell
+  title="Contact | Modern Faber"
+  description="How to step into Modern Faber if you are ready to ship work every week."
+  heroTitle="Contact"
+  meta={["For builders only", "Come prepared"]}
+  currentView="contact"
+>
+  <section class="doc-section">
+    <div class="section-head">
+      <p class="section-label">Membership</p>
+      <h2 class="section-title">Enter</h2>
+      <p class="section-copy">
+        Read the standard, bring recent work, and enter ready to submit in the first cycle.
+      </p>
+    </div>
+
+    <div class="join-panel">
+      <p class="footer-copy">
+        If that excites you, you already understand.<br />
+        If it doesn&rsquo;t, this is not for you.
+      </p>
+      <ul class="join-list">
+        <li>Review the policy before you join.</li>
+        <li>Bring proof of recent self-initiated work.</li>
+        <li>Submit in your first week or you are out.</li>
+      </ul>
+      <div class="cta-row">
+        <a class="cta" href={joinUrl} target="_blank" rel="noreferrer">Accept the invitation</a>
+        <p class="link-note">Show up with something real. Do it again next week.</p>
+      </div>
+    </div>
+  </section>
+</LetterShell>
