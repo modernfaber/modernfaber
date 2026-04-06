@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>A Letter to Builders | Modern Faber</title>
+    <meta
+      name="description"
+      content="A letter for builders who care about shipped work, visible proof, and showing up every week."
+    />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+
+      :root {
+        --canvas-top: #efe4d1;
+        --canvas-bottom: #cfb190;
+        --paper-top: rgba(255, 253, 247, 0.94);
+        --paper-bottom: rgba(244, 235, 219, 0.98);
+        --ink: #24180f;
+        --muted: #6f5741;
+        --rule: rgba(98, 73, 48, 0.22);
+        --seal-top: #b56737;
+        --seal-bottom: #733b1e;
+        --shadow: rgba(74, 47, 24, 0.24);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        color-scheme: light;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        font-family: "Cormorant Garamond", Georgia, serif;
+        background:
+          radial-gradient(circle at top, rgba(255, 249, 239, 0.9), transparent 40%),
+          linear-gradient(180deg, var(--canvas-top) 0%, var(--canvas-bottom) 100%);
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.18) 14%, transparent 28%),
+          repeating-linear-gradient(
+            135deg,
+            rgba(92, 66, 38, 0.035) 0 2px,
+            transparent 2px 14px
+          );
+      }
+
+      .page {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: clamp(24px, 4vw, 56px);
+      }
+
+      .letter {
+        position: relative;
+        width: min(100%, 860px);
+        padding: clamp(32px, 6vw, 76px);
+        overflow: hidden;
+        background:
+          linear-gradient(180deg, var(--paper-top), var(--paper-bottom)),
+          repeating-linear-gradient(
+            180deg,
+            rgba(111, 83, 58, 0.04) 0 1px,
+            transparent 1px 36px
+          );
+        border: 1px solid rgba(92, 66, 38, 0.18);
+        box-shadow:
+          0 30px 90px var(--shadow),
+          inset 0 1px 0 rgba(255, 255, 255, 0.82);
+        animation: settle 850ms cubic-bezier(0.22, 1, 0.36, 1) both;
+      }
+
+      .letter::before {
+        content: "";
+        position: absolute;
+        inset: 16px;
+        border: 1px solid rgba(92, 66, 38, 0.11);
+        pointer-events: none;
+      }
+
+      .letter::after {
+        content: "MF";
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        width: 72px;
+        height: 72px;
+        display: grid;
+        place-items: center;
+        border-radius: 999px;
+        border: 1px solid rgba(122, 74, 38, 0.35);
+        background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.72), rgba(167, 111, 70, 0.18));
+        color: rgba(122, 74, 38, 0.8);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        transform: rotate(11deg);
+      }
+
+      .header {
+        display: grid;
+        gap: 18px;
+        margin-bottom: 38px;
+      }
+
+      .eyebrow,
+      .meta,
+      .footer-note,
+      .link-note {
+        font-family: "IBM Plex Mono", monospace;
+      }
+
+      .eyebrow {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.74rem;
+        font-weight: 500;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+      }
+
+      .title {
+        margin: 0;
+        max-width: 9ch;
+        font-size: clamp(3.3rem, 10vw, 6rem);
+        line-height: 0.86;
+        font-weight: 600;
+        letter-spacing: -0.04em;
+      }
+
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 24px;
+        color: var(--muted);
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .rule {
+        height: 1px;
+        margin: 0 0 14px;
+        background: linear-gradient(90deg, transparent, var(--rule) 12%, var(--rule) 88%, transparent);
+      }
+
+      .body {
+        display: grid;
+        gap: 28px;
+      }
+
+      .stanza {
+        margin: 0;
+        max-width: 34ch;
+        font-size: clamp(1.35rem, 2.6vw, 1.84rem);
+        line-height: 1.58;
+        text-wrap: pretty;
+      }
+
+      .stanza--closing {
+        max-width: 30ch;
+      }
+
+      .dropcap {
+        float: left;
+        padding-top: 8px;
+        padding-right: 12px;
+        font-size: 4.6rem;
+        line-height: 0.78;
+        font-weight: 600;
+      }
+
+      .footer {
+        margin-top: 48px;
+        padding-top: 26px;
+        border-top: 1px solid var(--rule);
+        display: grid;
+        gap: 18px;
+      }
+
+      .footer-note {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.73rem;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .footer-copy {
+        margin: 0;
+        max-width: 29ch;
+        font-size: clamp(1.22rem, 2.3vw, 1.55rem);
+        line-height: 1.5;
+        text-wrap: pretty;
+      }
+
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        align-items: center;
+      }
+
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 176px;
+        min-height: 54px;
+        padding: 14px 22px;
+        border: 1px solid rgba(122, 74, 38, 0.35);
+        border-radius: 999px;
+        background: radial-gradient(circle at 30% 30%, var(--seal-top), var(--seal-bottom));
+        box-shadow: 0 14px 32px rgba(91, 41, 16, 0.22);
+        color: #fff9f2;
+        text-decoration: none;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        transition:
+          transform 180ms ease,
+          box-shadow 180ms ease,
+          filter 180ms ease;
+      }
+
+      .cta:hover,
+      .cta:focus-visible {
+        transform: translateY(-2px);
+        box-shadow: 0 20px 36px rgba(91, 41, 16, 0.28);
+        filter: saturate(1.08);
+      }
+
+      .cta:focus-visible {
+        outline: 2px solid rgba(122, 74, 38, 0.22);
+        outline-offset: 4px;
+      }
+
+      .link-note {
+        margin: 0;
+        max-width: 29ch;
+        color: var(--muted);
+        font-size: 0.76rem;
+        line-height: 1.6;
+      }
+
+      @keyframes settle {
+        from {
+          opacity: 0;
+          transform: translateY(22px) rotate(0.45deg);
+        }
+
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .letter,
+        .cta {
+          animation: none;
+          transition: none;
+        }
+      }
+
+      @media (max-width: 720px) {
+        body::before {
+          display: none;
+        }
+
+        .letter {
+          padding: 28px 22px 30px;
+        }
+
+        .letter::before {
+          inset: 12px;
+        }
+
+        .letter::after {
+          top: 18px;
+          right: 18px;
+          width: 54px;
+          height: 54px;
+          font-size: 0.62rem;
+        }
+
+        .title {
+          max-width: none;
+          font-size: clamp(2.8rem, 15vw, 4.2rem);
+        }
+
+        .stanza,
+        .footer-copy {
+          max-width: none;
+        }
+
+        .stanza {
+          font-size: clamp(1.18rem, 5.2vw, 1.42rem);
+        }
+
+        .dropcap {
+          padding-top: 4px;
+          padding-right: 10px;
+          font-size: 3.6rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <article class="letter">
+        <header class="header">
+          <p class="eyebrow">Modern Faber</p>
+          <h1 class="title">A Letter to Builders</h1>
+          <div class="meta">
+            <span>For people who ship</span>
+            <span>Read slowly</span>
+          </div>
+        </header>
+
+        <div class="rule" aria-hidden="true"></div>
+
+        <div class="body">
+          <p class="stanza">
+            <span class="dropcap">M</span>ost groups talk.<br /><br />
+            They share links.<br />
+            They debate ideas.<br />
+            They orbit around the idea of doing something meaningful.<br /><br />
+            Nothing gets built.<br /><br />
+            We are not that.
+          </p>
+
+          <p class="stanza">
+            We believe in a different standard.<br /><br />
+            Not intelligence as abstraction, but as execution.<br />
+            Not taste as opinion, but as decisions made under constraint.<br />
+            Not ambition as narrative, but as output&mdash;visible, undeniable, shipped.<br /><br />
+            We care about what exists because you made it.
+          </p>
+
+          <p class="stanza">
+            This is a room for people who build.<br /><br />
+            People who obsess over details no one else notices.<br />
+            Who rework something ten times when once would suffice.<br />
+            Who feel discomfort when something is &ldquo;almost right.&rdquo;<br /><br />
+            Craft is not a claim here.<br />
+            It is evidence.
+          </p>
+
+          <p class="stanza">
+            We are not interested in volume.<br /><br />
+            We are interested in consistency.<br /><br />
+            Showing up, every week, with something real.<br />
+            Something you struggled through.<br />
+            Something unfinished but undeniable.<br /><br />
+            Not once.<br />
+            Not occasionally.<br /><br />
+            Every week.
+          </p>
+
+          <p class="stanza">
+            This is not a place to consume.<br /><br />
+            It is a place to produce.<br /><br />
+            You will be seen through your work.<br />
+            You will be challenged on your decisions.<br />
+            You will be measured by what you do, not what you say.<br /><br />
+            And in return&mdash;<br /><br />
+            You will be surrounded by others doing the same.
+          </p>
+
+          <p class="stanza">
+            There is no audience here.<br /><br />
+            Only participants.<br /><br />
+            If you are looking for validation, this will feel uncomfortable.<br />
+            If you are looking for growth, it will feel inevitable.
+          </p>
+
+          <p class="stanza">
+            Over time, something happens.<br /><br />
+            A body of work emerges.<br />
+            A standard sharpens.<br />
+            A network forms&mdash;not through introductions, but through proof.<br /><br />
+            A map gets drawn, one point at a time.
+          </p>
+
+          <p class="stanza">
+            This is a simple system.<br /><br />
+            Show up.<br />
+            Build something real.<br />
+            Do it again next week.
+          </p>
+        </div>
+
+        <footer class="footer">
+          <p class="footer-note">Postscript</p>
+          <p class="footer-copy">
+            If that excites you, you already understand.<br />
+            If it doesn&rsquo;t, this is not for you.
+          </p>
+          <div class="cta-row">
+            <a
+              class="cta"
+              href="https://join.slack.com/t/modernfaber/shared_invite/zt-3uentlyli-5_PyQMILdRjEEgp3wP7Q4w"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Accept the invitation
+            </a>
+            <p class="link-note">Show up with something real. Do it again next week.</p>
+          </div>
+        </footer>
+      </article>
+    </main>
+  </body>
+</html>
