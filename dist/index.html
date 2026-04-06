@@ -315,6 +315,56 @@
         opacity: 1;
       }
 
+      .tab-nav {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .tab-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 64px;
+        padding: 16px 18px;
+        border: 1px solid rgba(122, 74, 38, 0.24);
+        border-radius: 18px;
+        background: rgba(255, 251, 245, 0.42);
+        color: var(--muted);
+        text-decoration: none;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.74rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        transition:
+          transform 180ms ease,
+          border-color 180ms ease,
+          background-color 180ms ease,
+          color 180ms ease,
+          box-shadow 180ms ease;
+      }
+
+      .tab-link:hover,
+      .tab-link:focus-visible {
+        transform: translateY(-2px);
+        color: var(--ink);
+        border-color: rgba(122, 74, 38, 0.4);
+        box-shadow: 0 14px 28px rgba(74, 47, 24, 0.12);
+      }
+
+      .tab-link:focus-visible {
+        outline: 2px solid rgba(122, 74, 38, 0.22);
+        outline-offset: 4px;
+      }
+
+      .tab-link[aria-current="page"] {
+        color: var(--ink);
+        border-color: rgba(122, 74, 38, 0.42);
+        background: linear-gradient(180deg, rgba(255, 252, 247, 0.9), rgba(239, 223, 197, 0.9));
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+      }
+
       @keyframes settle {
         from {
           opacity: 0;
@@ -374,6 +424,14 @@
           padding-top: 4px;
           padding-right: 10px;
           font-size: 3.6rem;
+        }
+
+        .tab-nav {
+          grid-template-columns: 1fr;
+        }
+
+        .tab-link {
+          min-height: 56px;
         }
       }
     </style>
@@ -470,15 +528,8 @@
             If it doesn&rsquo;t, this is not for you.
           </p>
           <div class="cta-row">
-            <a
-              class="cta"
-              href="https://join.slack.com/t/modernfaber/shared_invite/zt-3uentlyli-5_PyQMILdRjEEgp3wP7Q4w"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Accept the invitation
-            </a>
-            <p class="link-note">Show up with something real. Do it again next week.</p>
+            <a class="cta" href="/enter/">Enter the room</a>
+            <p class="link-note">Read the policy. Show up with something real. Do it again next week.</p>
           </div>
           <div class="signature-row" aria-hidden="true">
             <div class="signature-frame">
@@ -504,6 +555,11 @@
               />
             </div>
           </div>
+          <nav class="tab-nav" aria-label="Page navigation">
+            <a class="tab-link" href="/" aria-current="page">Manifesto</a>
+            <a class="tab-link" href="/community-policy/">Community Policy</a>
+            <a class="tab-link" href="/enter/">Join</a>
+          </nav>
         </footer>
       </article>
     </main>
