@@ -36,6 +36,12 @@
         color-scheme: light;
       }
 
+      @media (prefers-reduced-motion: no-preference) {
+        html {
+          scroll-behavior: smooth;
+        }
+      }
+
       body {
         margin: 0;
         min-height: 100vh;
@@ -162,6 +168,55 @@
         background: linear-gradient(90deg, transparent, var(--rule) 12%, var(--rule) 88%, transparent);
       }
 
+      .document {
+        display: grid;
+        gap: 54px;
+      }
+
+      .doc-section {
+        display: grid;
+        gap: 26px;
+        scroll-margin-top: 24px;
+      }
+
+      .doc-section + .doc-section {
+        padding-top: 44px;
+        border-top: 1px solid var(--rule);
+      }
+
+      .section-head {
+        display: grid;
+        gap: 10px;
+      }
+
+      .section-label {
+        margin: 0;
+        color: var(--muted);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.74rem;
+        font-weight: 500;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+      }
+
+      .section-title {
+        margin: 0;
+        max-width: 12ch;
+        font-size: clamp(2.3rem, 6vw, 3.7rem);
+        line-height: 0.94;
+        font-weight: 600;
+        letter-spacing: -0.04em;
+      }
+
+      .section-copy {
+        margin: 0;
+        max-width: 34ch;
+        color: rgba(36, 24, 15, 0.9);
+        font-size: clamp(1.2rem, 2.2vw, 1.42rem);
+        line-height: 1.5;
+        text-wrap: pretty;
+      }
+
       .body {
         display: grid;
         gap: 28px;
@@ -188,8 +243,98 @@
         font-weight: 600;
       }
 
+      .policy-sections {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 24px;
+      }
+
+      .policy-section {
+        display: grid;
+        grid-template-columns: 64px minmax(0, 1fr);
+        gap: 18px;
+        align-items: start;
+        padding-top: 18px;
+        border-top: 1px solid rgba(98, 73, 48, 0.14);
+      }
+
+      .policy-section:first-child {
+        padding-top: 0;
+        border-top: 0;
+      }
+
+      .policy-number {
+        color: var(--muted);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+      }
+
+      .policy-body {
+        display: grid;
+        gap: 12px;
+      }
+
+      .policy-title {
+        margin: 0;
+        font-size: clamp(1.55rem, 3vw, 1.9rem);
+        line-height: 1.05;
+        font-weight: 600;
+      }
+
+      .policy-text {
+        margin: 0;
+        max-width: 38ch;
+        font-size: clamp(1.12rem, 2vw, 1.28rem);
+        line-height: 1.55;
+        text-wrap: pretty;
+      }
+
+      .policy-list,
+      .policy-sublist,
+      .join-list {
+        margin: 0;
+        padding-left: 1.15em;
+        max-width: 40ch;
+        font-size: clamp(1.08rem, 1.9vw, 1.22rem);
+        line-height: 1.58;
+      }
+
+      .policy-list,
+      .policy-sublist {
+        display: grid;
+        gap: 8px;
+      }
+
+      .policy-sublist {
+        padding-left: 1.05em;
+      }
+
+      .policy-callout {
+        margin: 0;
+        max-width: 33ch;
+        padding: 14px 16px;
+        border-left: 2px solid rgba(122, 74, 38, 0.42);
+        background: rgba(255, 255, 255, 0.36);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.8rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        line-height: 1.75;
+        text-transform: uppercase;
+      }
+
+      .join-panel {
+        display: grid;
+        gap: 22px;
+      }
+
       .footer {
-        margin-top: 48px;
+        margin-top: 56px;
         padding-top: 26px;
         border-top: 1px solid var(--rule);
         display: grid;
@@ -262,6 +407,56 @@
         color: var(--muted);
         font-size: 0.76rem;
         line-height: 1.6;
+      }
+
+      .bottom-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: flex-end;
+      }
+
+      .tab-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 18px 10px;
+        border: 1px solid rgba(122, 74, 38, 0.2);
+        border-radius: 14px 14px 0 0;
+        background: rgba(249, 242, 231, 0.6);
+        color: var(--muted);
+        text-decoration: none;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.74rem;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        transition:
+          transform 180ms ease,
+          background 180ms ease,
+          color 180ms ease,
+          border-color 180ms ease;
+      }
+
+      .tab-link:hover,
+      .tab-link:focus-visible {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.82);
+        color: var(--ink);
+        border-color: rgba(122, 74, 38, 0.32);
+      }
+
+      .tab-link:focus-visible {
+        outline: 2px solid rgba(122, 74, 38, 0.22);
+        outline-offset: 4px;
+      }
+
+      .tab-link.is-current,
+      .tab-link[aria-current="page"] {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(248, 236, 219, 0.92));
+        color: var(--ink);
+        border-color: rgba(122, 74, 38, 0.34);
+        transform: translateY(-3px);
       }
 
       .signature-row {
@@ -411,13 +606,45 @@
           font-size: clamp(2.8rem, 15vw, 4.2rem);
         }
 
+        .document {
+          gap: 42px;
+        }
+
+        .doc-section + .doc-section {
+          padding-top: 34px;
+        }
+
+        .section-title {
+          max-width: none;
+          font-size: clamp(2rem, 10vw, 3rem);
+        }
+
         .stanza,
-        .footer-copy {
+        .footer-copy,
+        .section-copy,
+        .policy-text,
+        .policy-list,
+        .policy-sublist,
+        .join-list {
           max-width: none;
         }
 
         .stanza {
           font-size: clamp(1.18rem, 5.2vw, 1.42rem);
+        }
+
+        .policy-section {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+
+        .tab-link {
+          flex: 1 1 100%;
+          border-radius: 12px;
+        }
+
+        .signature-row {
+          justify-content: flex-start;
         }
 
         .dropcap {
@@ -450,87 +677,360 @@
 
         <div class="rule" aria-hidden="true"></div>
 
-        <div class="body">
-          <p class="stanza">
-            <span class="dropcap">M</span>ost groups talk.<br /><br />
-            They share links.<br />
-            They debate ideas.<br />
-            They orbit around the idea of doing something meaningful.<br /><br />
-            Nothing gets built.<br /><br />
-            We are not that.
-          </p>
+        <div class="document">
+          <section id="manifesto" class="doc-section" data-nav-section>
+            <div class="section-head">
+              <p class="section-label">Manifesto</p>
+            </div>
+            <div class="body">
+              <p class="stanza">
+                <span class="dropcap">M</span>ost groups talk.<br /><br />
+                They share links.<br />
+                They debate ideas.<br />
+                They orbit around the idea of doing something meaningful.<br /><br />
+                Nothing gets built.<br /><br />
+                We are not that.
+              </p>
 
-          <p class="stanza">
-            We believe in a different standard.<br /><br />
-            Not intelligence as abstraction, but as execution.<br />
-            Not taste as opinion, but as decisions made under constraint.<br />
-            Not ambition as narrative, but as output&mdash;visible, undeniable, shipped.<br /><br />
-            We care about what exists because you made it.
-          </p>
+              <p class="stanza">
+                We believe in a different standard.<br /><br />
+                Not intelligence as abstraction, but as execution.<br />
+                Not taste as opinion, but as decisions made under constraint.<br />
+                Not ambition as narrative, but as output&mdash;visible, undeniable, shipped.<br /><br />
+                We care about what exists because you made it.
+              </p>
 
-          <p class="stanza">
-            This is a room for people who build.<br /><br />
-            People who obsess over details no one else notices.<br />
-            Who rework something ten times when once would suffice.<br />
-            Who feel discomfort when something is &ldquo;almost right.&rdquo;<br /><br />
-            Craft is not a claim here.<br />
-            It is evidence.
-          </p>
+              <p class="stanza">
+                This is a room for people who build.<br /><br />
+                People who obsess over details no one else notices.<br />
+                Who rework something ten times when once would suffice.<br />
+                Who feel discomfort when something is &ldquo;almost right.&rdquo;<br /><br />
+                Craft is not a claim here.<br />
+                It is evidence.
+              </p>
 
-          <p class="stanza">
-            We are not interested in volume.<br /><br />
-            We are interested in consistency.<br /><br />
-            Showing up, every week, with something real.<br />
-            Something you struggled through.<br />
-            Something unfinished but undeniable.<br /><br />
-            Not once.<br />
-            Not occasionally.<br /><br />
-            Every week.
-          </p>
+              <p class="stanza">
+                We are not interested in volume.<br /><br />
+                We are interested in consistency.<br /><br />
+                Showing up, every week, with something real.<br />
+                Something you struggled through.<br />
+                Something unfinished but undeniable.<br /><br />
+                Not once.<br />
+                Not occasionally.<br /><br />
+                Every week.
+              </p>
 
-          <p class="stanza">
-            This is not a place to consume.<br /><br />
-            It is a place to produce.<br /><br />
-            You will be seen through your work.<br />
-            You will be challenged on your decisions.<br />
-            You will be measured by what you do, not what you say.<br /><br />
-            And in return&mdash;<br /><br />
-            You will be surrounded by others doing the same.
-          </p>
+              <p class="stanza">
+                This is not a place to consume.<br /><br />
+                It is a place to produce.<br /><br />
+                You will be seen through your work.<br />
+                You will be challenged on your decisions.<br />
+                You will be measured by what you do, not what you say.<br /><br />
+                And in return&mdash;<br /><br />
+                You will be surrounded by others doing the same.
+              </p>
 
-          <p class="stanza">
-            There is no audience here.<br /><br />
-            Only participants.<br /><br />
-            If you are looking for validation, this will feel uncomfortable.<br />
-            If you are looking for growth, it will feel inevitable.
-          </p>
+              <p class="stanza">
+                There is no audience here.<br /><br />
+                Only participants.<br /><br />
+                If you are looking for validation, this will feel uncomfortable.<br />
+                If you are looking for growth, it will feel inevitable.
+              </p>
 
-          <p class="stanza">
-            Over time, something happens.<br /><br />
-            A body of work emerges.<br />
-            A standard sharpens.<br />
-            A network forms&mdash;not through introductions, but through proof.<br /><br />
-            A map gets drawn, one point at a time.
-          </p>
+              <p class="stanza">
+                Over time, something happens.<br /><br />
+                A body of work emerges.<br />
+                A standard sharpens.<br />
+                A network forms&mdash;not through introductions, but through proof.<br /><br />
+                A map gets drawn, one point at a time.
+              </p>
 
-          <p class="stanza">
-            This is a simple system.<br /><br />
-            Show up.<br />
-            Build something real.<br />
-            Do it again next week.
-          </p>
+              <p class="stanza">
+                This is a simple system.<br /><br />
+                Show up.<br />
+                Build something real.<br />
+                Do it again next week.
+              </p>
+            </div>
+          </section>
+
+          <section id="community-policy" class="doc-section" data-nav-section>
+            <div class="section-head">
+              <p class="section-label">Internal Operating Policy</p>
+              <h2 class="section-title">Community Policy</h2>
+              <p class="section-copy">
+                Craft Group exists to enforce a weekly standard. If meaningful work is not shipping,
+                the system is failing.
+              </p>
+            </div>
+            <ol class="policy-sections">
+              <li class="policy-section">
+                <div class="policy-number">01</div>
+                <div class="policy-body">
+                  <h3 class="policy-title">Objective</h3>
+                  <p class="policy-text">
+                    This group is designed to produce consistent, high-quality output through
+                    enforced accountability.
+                  </p>
+                  <p class="policy-callout">
+                    Everything optimizes for one outcome: members ship meaningful work every week.
+                    If this is not happening, the system is failing.
+                  </p>
+                </div>
+              </li>
+
+              <li class="policy-section">
+                <div class="policy-number">02</div>
+                <div class="policy-body">
+                  <h3 class="policy-title">Operating Principles</h3>
+                  <ol class="policy-list">
+                    <li>Output is the only signal that matters.</li>
+                    <li>Consistency beats intensity.</li>
+                    <li>Constraints create quality.</li>
+                    <li>Social pressure is a feature, not a bug.</li>
+                    <li>Removal is necessary to maintain standards.</li>
+                  </ol>
+                </div>
+              </li>
+
+              <li class="policy-section">
+                <div class="policy-number">03</div>
+                <div class="policy-body">
+                  <h3 class="policy-title">System Design (Non-Negotiable)</h3>
+                  <p class="policy-text">Weekly cadence is fixed. There is no rolling submission window.</p>
+                  <ul class="policy-list">
+                    <li>Fixed weekly deadline.</li>
+                    <li>All submissions posted before deadline.</li>
+                    <li>No batching and no skipping weeks.</li>
+                  </ul>
+                  <p class="policy-text">Submission format is strict and non-negotiable.</p>
+                  <ul class="policy-list">
+                    <li>
+                      <strong>[Output]</strong>
+                      <ul class="policy-sublist">
+                        <li>Link.</li>
+                        <li>1&ndash;3 line description.</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>[Craft]</strong>
+                      <ul class="policy-sublist">
+                        <li>What specific detail was iterated on and why.</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>[Blocker]</strong>
+                      <ul class="policy-sublist">
+                        <li>Where progress slowed or failed.</li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <p class="policy-callout">No deviation from format.</p>
+                </div>
+              </li>
+
+              <li class="policy-section">
+                <div class="policy-number">04</div>
+                <div class="policy-body">
+                  <h3 class="policy-title">Enforcement Mechanism</h3>
+                  <p class="policy-text">This group survives on enforcement.</p>
+                  <ul class="policy-list">
+                    <li>2 consecutive missed submissions leads to removal.</li>
+                    <li>3 total misses, even if non-consecutive, leads to removal.</li>
+                    <li>Repeated low-effort output leads to removal.</li>
+                    <li>No engagement, including no comments or feedback, leads to removal.</li>
+                  </ul>
+                  <p class="policy-callout">No exceptions.</p>
+                  <p class="policy-text">Low effort includes the following:</p>
+                  <ul class="policy-list">
+                    <li>No meaningful progress since the last submission.</li>
+                    <li>Superficial updates that are cosmetic or trivial.</li>
+                    <li>Recycled or old work.</li>
+                  </ul>
+                  <p class="policy-text">Judgment is made by the operator.</p>
+                </div>
+              </li>
+
+              <li class="policy-section">
+                <div class="policy-number">05</div>
+                <div class="policy-body">
+                  <h3 class="policy-title">Membership Pipeline</h3>
+                  <p class="policy-text">Entry requirements:</p>
+                  <ul class="policy-list">
+                    <li>Proof of recent work from within the last two weeks.</li>
+                    <li>Self-initiated work, not assigned work.</li>
+                    <li>Clear demonstration of decision-making.</li>
+                  </ul>
+                  <p class="policy-text">Screening questions:</p>
+                  <ul class="policy-list">
+                    <li>What did you build recently?</li>
+                    <li>What was hard about it?</li>
+                    <li>What did you iterate on multiple times?</li>
+                  </ul>
+                  <p class="policy-callout">Reject fast if the answers are vague.</p>
+                </div>
+              </li>
+
+              <li class="policy-section">
+                <div class="policy-number">06</div>
+                <div class="policy-body">
+                  <h3 class="policy-title">Onboarding Protocol</h3>
+                  <p class="policy-text">Before the Slack invite:</p>
+                  <ul class="policy-list">
+                    <li>Review the policy. This is mandatory.</li>
+                    <li>Submit an initial work sample.</li>
+                  </ul>
+                  <p class="policy-text">During the first week:</p>
+                  <ul class="policy-list">
+                    <li>Submit within the first cycle.</li>
+                    <li>Failure to submit results in immediate removal.</li>
+                  </ul>
+                  <p class="policy-callout">Filter early, not later.</p>
+                </div>
+              </li>
+
+              <li class="policy-section">
+                <div class="policy-number">07</div>
+                <div class="policy-body">
+                  <h3 class="policy-title">Slack Structure (Locked)</h3>
+                  <p class="policy-text">Channels:</p>
+                  <ul class="policy-list">
+                    <li><strong>#build</strong> for submissions only.</li>
+                    <li><strong>#intro</strong> for onboarding only.</li>
+                    <li><strong>#random</strong> for everything else.</li>
+                  </ul>
+                  <p class="policy-text">Rules:</p>
+                  <ul class="policy-list">
+                    <li>No discussions in <strong>#build</strong> beyond feedback.</li>
+                    <li>No content dumping in <strong>#random</strong>.</li>
+                    <li>No new channels without approval.</li>
+                  </ul>
+                </div>
+              </li>
+
+              <li class="policy-section">
+                <div class="policy-number">08</div>
+                <div class="policy-body">
+                  <h3 class="policy-title">Feedback Standard</h3>
+                  <p class="policy-text">Feedback must be specific, actionable, and direct.</p>
+                  <p class="policy-text">Avoid the following:</p>
+                  <ul class="policy-list">
+                    <li>Praise without substance.</li>
+                    <li>Generic comments.</li>
+                  </ul>
+                  <p class="policy-callout">
+                    Minimum standard: each member leaves at least one meaningful comment per week.
+                  </p>
+                </div>
+              </li>
+
+              <li class="policy-section">
+                <div class="policy-number">09</div>
+                <div class="policy-body">
+                  <h3 class="policy-title">Operator Responsibilities</h3>
+                  <p class="policy-text">The group requires active enforcement.</p>
+                  <ul class="policy-list">
+                    <li>Track weekly submissions.</li>
+                    <li>Enforce removals without delay.</li>
+                    <li>Maintain the standard of output.</li>
+                    <li>Admit new members selectively.</li>
+                  </ul>
+                  <p class="policy-callout">Failure here means group collapse.</p>
+                </div>
+              </li>
+
+              <li class="policy-section">
+                <div class="policy-number">10</div>
+                <div class="policy-body">
+                  <h3 class="policy-title">Failure Modes (Watch Closely)</h3>
+                  <ol class="policy-list">
+                    <li>Activity decay. Fix it with stricter enforcement.</li>
+                    <li>Quality dilution. Remove the weakest contributors quickly.</li>
+                    <li>Overgrowth. Cap or slow admissions.</li>
+                    <li>Conversation drift. Redirect to output focus.</li>
+                  </ol>
+                </div>
+              </li>
+
+              <li class="policy-section">
+                <div class="policy-number">11</div>
+                <div class="policy-body">
+                  <h3 class="policy-title">Growth Strategy</h3>
+                  <ul class="policy-list">
+                    <li>Start with 3 to 5 high-quality members.</li>
+                    <li>Add slowly, one person at a time.</li>
+                    <li>Only admit people who raise the bar.</li>
+                  </ul>
+                  <p class="policy-callout">Do not optimize for size.</p>
+                </div>
+              </li>
+
+              <li class="policy-section">
+                <div class="policy-number">12</div>
+                <div class="policy-body">
+                  <h3 class="policy-title">Culture</h3>
+                  <ul class="policy-list">
+                    <li>High accountability.</li>
+                    <li>Low tolerance for excuses.</li>
+                    <li>Respect through output.</li>
+                    <li>Quiet intensity over loud participation.</li>
+                  </ul>
+                </div>
+              </li>
+
+              <li class="policy-section">
+                <div class="policy-number">13</div>
+                <div class="policy-body">
+                  <h3 class="policy-title">Core Rule</h3>
+                  <p class="policy-callout">If you are not building, you are removed.</p>
+                  <p class="policy-text">Everything else is secondary.</p>
+                </div>
+              </li>
+            </ol>
+          </section>
+
+          <section id="join" class="doc-section" data-nav-section>
+            <div class="section-head">
+              <p class="section-label">Membership</p>
+              <h2 class="section-title">Join</h2>
+              <p class="section-copy">
+                Read the standard, bring recent work, and enter ready to submit in the first cycle.
+              </p>
+            </div>
+            <div class="join-panel">
+              <p class="footer-copy">
+                If that excites you, you already understand.<br />
+                If it doesn&rsquo;t, this is not for you.
+              </p>
+              <ul class="join-list">
+                <li>Review the policy before you join.</li>
+                <li>Bring proof of recent self-initiated work.</li>
+                <li>Submit in your first week or you are out.</li>
+              </ul>
+              <div class="cta-row">
+                <a
+                  class="cta"
+                  href="https://join.slack.com/t/modernfaber/shared_invite/zt-3uentlyli-5_PyQMILdRjEEgp3wP7Q4w"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Accept the invitation
+                </a>
+                <p class="link-note">Show up with something real. Do it again next week.</p>
+              </div>
+            </div>
+          </section>
         </div>
 
         <footer class="footer">
-          <p class="footer-note">Postscript</p>
-          <p class="footer-copy">
-            If that excites you, you already understand.<br />
-            If it doesn&rsquo;t, this is not for you.
-          </p>
-          <div class="cta-row">
-            <a class="cta" href="/enter/">Enter the room</a>
-            <p class="link-note">Read the policy. Show up with something real. Do it again next week.</p>
-          </div>
+          <p class="footer-note">Page Navigation</p>
+          <nav class="bottom-nav" aria-label="Page sections">
+            <a class="tab-link is-current" href="#manifesto" data-nav-link="manifesto">Manifesto</a>
+            <a class="tab-link" href="#community-policy" data-nav-link="community-policy"
+              >Community Policy</a
+            >
+            <a class="tab-link" href="#join" data-nav-link="join">Join</a>
+          </nav>
           <div class="signature-row" aria-hidden="true">
             <div class="signature-frame">
               <video
@@ -555,15 +1055,72 @@
               />
             </div>
           </div>
-          <nav class="tab-nav" aria-label="Page navigation">
-            <a class="tab-link" href="/" aria-current="page">Manifesto</a>
-            <a class="tab-link" href="/community-policy/">Community Policy</a>
-            <a class="tab-link" href="/enter/">Join</a>
-          </nav>
         </footer>
       </article>
     </main>
     <script>
+      (() => {
+        const links = Array.from(document.querySelectorAll("[data-nav-link]"));
+        const sections = Array.from(document.querySelectorAll("[data-nav-section]"));
+
+        if (!links.length || !sections.length) {
+          return;
+        }
+
+        const setCurrent = (id) => {
+          links.forEach((link) => {
+            const isCurrent = link.dataset.navLink === id;
+            link.classList.toggle("is-current", isCurrent);
+
+            if (isCurrent) {
+              link.setAttribute("aria-current", "page");
+              return;
+            }
+
+            link.removeAttribute("aria-current");
+          });
+        };
+
+        const initialHash = window.location.hash.replace("#", "");
+        setCurrent(initialHash || "manifesto");
+
+        links.forEach((link) => {
+          link.addEventListener("click", () => {
+            setCurrent(link.dataset.navLink || "manifesto");
+          });
+        });
+
+        if (!("IntersectionObserver" in window)) {
+          return;
+        }
+
+        const navObserver = new IntersectionObserver(
+          (entries) => {
+            const visible = entries
+              .filter((entry) => entry.isIntersecting)
+              .sort((left, right) => right.intersectionRatio - left.intersectionRatio)[0];
+
+            if (visible) {
+              setCurrent(visible.target.id);
+            }
+          },
+          {
+            threshold: [0.12, 0.3, 0.55, 0.8],
+            rootMargin: "-18% 0px -52% 0px",
+          }
+        );
+
+        sections.forEach((section) => navObserver.observe(section));
+
+        window.addEventListener(
+          "pagehide",
+          () => {
+            navObserver.disconnect();
+          },
+          { once: true }
+        );
+      })();
+
       (() => {
         const video = document.getElementById("signature-video");
         const image = document.getElementById("signature-image");
