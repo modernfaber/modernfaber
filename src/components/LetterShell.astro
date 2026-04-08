@@ -239,6 +239,14 @@ const currentLabel = navItems.find((item) => item.key === currentView)?.label ??
         text-wrap: pretty;
       }
 
+      .stanza-art {
+        display: block;
+        width: min(100%, 220px);
+        margin: 0.9rem 0 0.7rem;
+        border: 1px solid var(--border);
+        background: #ffffff;
+      }
+
       .dropcap {
         float: left;
         margin: 0.08em 0.4rem 0 0;
@@ -367,6 +375,7 @@ const currentLabel = navItems.find((item) => item.key === currentView)?.label ??
         }
 
         .stanza,
+        .stanza-art,
         .section-copy,
         .policy-text,
         .policy-list,
