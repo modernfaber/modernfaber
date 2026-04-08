@@ -13,112 +13,139 @@ import { joinUrl } from "../lib/site";
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
-
       :root {
         --bg: #ffffff;
-        --ink: #111111;
-        --muted: #6b6b6b;
-        --rule: #e8e8e8;
+        --ink: #1a1a1a;
+        --muted: #666666;
+        --rule: #eeeeee;
+        --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        --font-serif: "Instrument Serif", serif;
+        --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
       }
 
       * {
         box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
 
       body {
         margin: 0;
         min-height: 100vh;
-        display: grid;
-        place-items: start center;
-        padding: 24px;
+        max-width: 680px;
+        padding: 2rem 1rem 3rem;
+        margin: 0 auto;
         color: var(--ink);
-        font-family: "Newsreader", Georgia, serif;
+        font-family: var(--font-sans);
+        line-height: 1.6;
         background: var(--bg);
       }
 
       main {
-        width: min(100%, 560px);
-        padding: clamp(24px, 5vw, 40px);
+        display: grid;
+        gap: 1.25rem;
       }
 
-      p,
       a {
-        font-family: "IBM Plex Mono", monospace;
+        color: inherit;
+      }
+
+      .brand {
+        font-family: var(--font-serif);
+        font-size: clamp(2.4rem, 8vw, 3.35rem);
+        font-style: italic;
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        line-height: 0.94;
+        text-decoration: none;
       }
 
       .eyebrow,
-      p {
-        color: var(--muted);
+      p,
+      .cta {
+        font-family: var(--font-mono);
       }
 
       .eyebrow {
-        margin: 0 0 12px;
+        color: var(--muted);
         font-size: 0.74rem;
-        font-weight: 500;
-        letter-spacing: 0.22em;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
       }
 
       h1 {
         margin: 0;
-        font-size: clamp(2.5rem, 8vw, 3.8rem);
-        line-height: 0.9;
-        font-weight: 600;
-        letter-spacing: -0.04em;
+        font-family: var(--font-serif);
+        font-size: clamp(2.7rem, 12vw, 4rem);
+        font-weight: 400;
+        letter-spacing: -0.03em;
+        line-height: 0.92;
       }
 
       .rule {
         height: 1px;
-        margin: 22px 0;
         background: var(--rule);
       }
 
-      p {
-        margin: 0;
-        font-size: 0.9rem;
-        line-height: 1.8;
-        letter-spacing: 0.02em;
-        text-transform: none;
+      .body {
+        display: grid;
+        gap: 1rem;
       }
 
-      a {
+      p {
+        color: var(--muted);
+        font-size: 0.82rem;
+        line-height: 1.85;
+        letter-spacing: 0.02em;
+      }
+
+      .cta {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        margin-top: 26px;
-        min-width: 176px;
-        min-height: 54px;
-        padding: 14px 22px;
-        border: 1px solid var(--ink);
-        border-radius: 999px;
-        background: var(--bg);
-        color: var(--ink);
+        width: fit-content;
+        padding: 0.4rem 0.75rem;
+        background: #ffffff;
+        border: 1px solid #d0d0d0;
+        border-radius: 6px;
+        box-shadow: 0 2px 0 #c0c0c0;
+        color: #333333;
         text-decoration: none;
         font-size: 0.8rem;
-        font-weight: 600;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        transition: background 160ms ease, color 160ms ease;
+        transition: transform 0.1s ease, box-shadow 0.1s ease;
       }
 
-      a:hover,
-      a:focus-visible {
-        background: var(--ink);
-        color: var(--bg);
+      .cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 0 #c0c0c0;
+      }
+
+      .cta:active {
+        transform: translateY(2px);
+        box-shadow: 0 0 0 #c0c0c0;
       }
     </style>
   </head>
   <body>
     <main>
+      <a class="brand" href="/">Modern Faber</a>
       <p class="eyebrow">Modern Faber</p>
       <h1>Opening the letter</h1>
       <div class="rule" aria-hidden="true"></div>
-      <p>
-        If the invitation does not open automatically, use the link below and step into the room.
-      </p>
-      <a href={joinUrl} target="_blank" rel="noreferrer">Accept the invitation</a>
+      <div class="body">
+        <p>
+          If the invitation does not open automatically, use the link below and step into the
+          room.
+        </p>
+        <a class="cta" href={joinUrl} target="_blank" rel="noreferrer">Accept the invitation</a>
+      </div>
     </main>
   </body>
 </html>

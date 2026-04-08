@@ -16,6 +16,8 @@ const navItems = [
   { key: "policy", href: "/policy", label: "Policy" },
   { key: "contact", href: "/contact", label: "Contact" },
 ] as const;
+
+const currentLabel = navItems.find((item) => item.key === currentView)?.label ?? heroTitle;
 ---
 
 <!doctype html>
@@ -23,184 +25,242 @@ const navItems = [
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
     <meta name="description" content={description} />
+    <title>{title}</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
     <style is:global>
-      @import url("https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
-
       :root {
         --bg: #ffffff;
-        --ink: #111111;
-        --muted: #6b6b6b;
-        --rule: #e8e8e8;
+        --ink: #1a1a1a;
+        --muted: #666666;
+        --border: #eeeeee;
+        --border-strong: #d8d8d8;
+        --max-width: 680px;
+        --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        --font-serif: "Instrument Serif", serif;
+        --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
       }
 
-      * {
+      *,
+      *::before,
+      *::after {
         box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
 
       html {
-        color-scheme: light;
-      }
-
-      body {
-        margin: 0;
-        min-height: 100vh;
-        color: var(--ink);
-        font-family: "Newsreader", Georgia, serif;
+        overflow-x: hidden;
+        overflow-y: scroll;
         background: var(--bg);
       }
 
-      .page {
+      body {
+        max-width: var(--max-width);
         min-height: 100vh;
-        display: grid;
-        place-items: start center;
-        padding: clamp(24px, 4vw, 56px) clamp(24px, 4vw, 56px) 116px;
+        margin: 0 auto;
+        padding: 2rem 1rem 4rem;
+        color: var(--ink);
+        font-family: var(--font-sans);
+        line-height: 1.6;
+        background: var(--bg);
       }
 
-      .letter {
-        width: min(100%, 760px);
+      a {
+        color: inherit;
+        overflow-wrap: break-word;
+        word-break: break-word;
       }
 
-      .header {
+      strong {
+        font-weight: 600;
+      }
+
+      .page {
         display: grid;
-        gap: 12px;
-        margin-bottom: 24px;
+        gap: 1.5rem;
+      }
+
+      .site-header {
+        display: grid;
+        gap: 0.45rem;
+      }
+
+      .brand {
+        margin: 0;
+        font-family: var(--font-serif);
+        font-size: clamp(2.4rem, 8vw, 3.35rem);
+        font-style: italic;
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        line-height: 0.94;
+      }
+
+      .brand a {
+        text-decoration: none;
+      }
+
+      .site-copy {
+        max-width: 41ch;
+        color: var(--muted);
+        text-wrap: pretty;
+      }
+
+      .main-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.9rem 1rem;
+      }
+
+      .main-nav a {
+        padding-bottom: 0.25rem;
+        color: var(--muted);
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        text-decoration: none;
+      }
+
+      .main-nav a:hover {
+        color: var(--ink);
+      }
+
+      .main-nav a[aria-current="page"] {
+        color: var(--ink);
+        border-bottom: 2px solid var(--ink);
+      }
+
+      .rule {
+        height: 1px;
+        background: var(--border);
+      }
+
+      .hero {
+        display: grid;
+        gap: 0.85rem;
       }
 
       .eyebrow,
       .meta,
-      .link-note,
       .section-label,
-      .policy-number {
-        font-family: "IBM Plex Mono", monospace;
+      .policy-number,
+      .policy-callout,
+      .link-note {
+        font-family: var(--font-mono);
       }
 
-      .eyebrow {
-        margin: 0;
+      .eyebrow,
+      .section-label,
+      .policy-number {
         color: var(--muted);
         font-size: 0.74rem;
-        font-weight: 500;
-        letter-spacing: 0.22em;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
       }
 
       .title {
         margin: 0;
-        max-width: none;
-        font-size: clamp(2.8rem, 7vw, 4.35rem);
-        line-height: 0.94;
-        font-weight: 600;
-        letter-spacing: -0.04em;
+        font-family: var(--font-serif);
+        font-size: clamp(3rem, 10vw, 4.8rem);
+        font-weight: 400;
+        letter-spacing: -0.035em;
+        line-height: 0.9;
         text-wrap: balance;
       }
 
       .meta {
         display: flex;
         flex-wrap: wrap;
-        gap: 12px 24px;
+        gap: 0.5rem 1rem;
         color: var(--muted);
-        font-size: 0.72rem;
-        font-weight: 500;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-      }
-
-      .rule {
-        height: 1px;
-        margin: 0 0 18px;
-        background: var(--rule);
+        font-size: 0.78rem;
       }
 
       .document {
         display: grid;
-        gap: 54px;
+        gap: 2.75rem;
       }
 
       .doc-section {
         display: grid;
-        gap: 26px;
+        gap: 1.35rem;
       }
 
       .doc-section + .doc-section {
-        padding-top: 44px;
-        border-top: 1px solid var(--rule);
+        padding-top: 2rem;
+        border-top: 1px solid var(--border);
       }
 
       .section-head {
         display: grid;
-        gap: 10px;
+        gap: 0.5rem;
       }
 
-      .section-label {
+      .section-title,
+      .policy-title {
         margin: 0;
-        color: var(--muted);
-        font-size: 0.74rem;
-        font-weight: 500;
-        letter-spacing: 0.24em;
-        text-transform: uppercase;
-      }
-
-      .section-title {
-        margin: 0;
-        max-width: none;
-        font-size: clamp(2rem, 4.8vw, 3rem);
-        line-height: 0.98;
-        font-weight: 600;
-        letter-spacing: -0.04em;
+        font-family: var(--font-serif);
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        line-height: 1.02;
         text-wrap: balance;
       }
 
-      .section-copy {
-        margin: 0;
-        max-width: 34ch;
-        color: var(--ink);
-        font-size: clamp(1.12rem, 2vw, 1.28rem);
-        line-height: 1.5;
+      .section-title {
+        font-size: clamp(2rem, 5vw, 2.7rem);
+      }
+
+      .section-copy,
+      .policy-text,
+      .footer-copy {
+        max-width: 40ch;
+        font-size: 1rem;
+        line-height: 1.75;
         text-wrap: pretty;
       }
 
       .body {
         display: grid;
-        gap: 28px;
+        gap: 1.35rem;
       }
 
       .stanza {
-        margin: 0;
-        max-width: 38ch;
-        font-size: clamp(1.28rem, 2.4vw, 1.66rem);
-        line-height: 1.6;
+        max-width: 40ch;
+        font-size: clamp(1.02rem, 2vw, 1.08rem);
+        line-height: 1.85;
         text-wrap: pretty;
       }
 
       .dropcap {
         float: left;
-        padding-top: 6px;
-        padding-right: 10px;
-        font-size: 4rem;
-        line-height: 0.78;
-        font-weight: 600;
+        margin: 0.08em 0.4rem 0 0;
+        font-family: var(--font-serif);
+        font-size: 3.2rem;
+        font-style: italic;
+        line-height: 0.8;
       }
 
       .policy-sections {
         list-style: none;
-        margin: 0;
-        padding: 0;
         display: grid;
-        gap: 24px;
+        gap: 1.6rem;
       }
 
       .policy-section {
         display: grid;
         grid-template-columns: 64px minmax(0, 1fr);
-        gap: 18px;
+        gap: 1rem;
         align-items: start;
-        padding-top: 18px;
-        border-top: 1px solid rgba(98, 73, 48, 0.14);
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border);
       }
 
       .policy-section:first-child {
@@ -208,246 +268,148 @@ const navItems = [
         border-top: 0;
       }
 
-      .policy-number {
-        color: var(--muted);
-        font-size: 0.75rem;
-        font-weight: 600;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-      }
-
       .policy-body {
         display: grid;
-        gap: 12px;
+        gap: 0.8rem;
       }
 
       .policy-title {
-        margin: 0;
-        font-size: clamp(1.55rem, 3vw, 1.9rem);
-        line-height: 1.05;
-        font-weight: 600;
-      }
-
-      .policy-text {
-        margin: 0;
-        max-width: 38ch;
-        font-size: clamp(1.12rem, 2vw, 1.28rem);
-        line-height: 1.55;
-        text-wrap: pretty;
+        font-size: clamp(1.65rem, 4vw, 2rem);
       }
 
       .policy-list,
       .policy-sublist,
       .join-list {
-        margin: 0;
-        padding-left: 1.15em;
         max-width: 40ch;
-        font-size: clamp(1.08rem, 1.9vw, 1.22rem);
-        line-height: 1.58;
+        margin: 0;
+        padding-left: 1.2em;
+        font-size: 1rem;
+        line-height: 1.75;
       }
 
-      .policy-list,
-      .policy-sublist {
-        display: grid;
-        gap: 8px;
+      .policy-list li + li,
+      .policy-sublist li + li,
+      .join-list li + li {
+        margin-top: 0.35rem;
       }
 
       .policy-sublist {
-        padding-left: 1.05em;
+        margin-top: 0.45rem;
       }
 
       .policy-callout {
-        margin: 0;
-        max-width: 33ch;
-        padding: 0 0 0 14px;
-        border-left: 1px solid var(--rule);
-        background: transparent;
-        font-family: "IBM Plex Mono", monospace;
-        font-size: 0.8rem;
-        font-weight: 500;
-        letter-spacing: 0.04em;
-        line-height: 1.75;
+        max-width: 40ch;
+        padding-left: 1rem;
+        border-left: 2px solid var(--border-strong);
+        color: #555555;
+        font-size: 0.73rem;
+        letter-spacing: 0.08em;
+        line-height: 1.8;
         text-transform: uppercase;
       }
 
       .join-panel {
         display: grid;
-        gap: 22px;
+        gap: 1rem;
       }
 
       .footer-copy {
-        margin: 0;
-        max-width: 29ch;
-        font-size: clamp(1.22rem, 2.3vw, 1.55rem);
-        line-height: 1.5;
-        text-wrap: pretty;
+        font-size: clamp(1.05rem, 2.2vw, 1.14rem);
       }
 
       .cta-row {
         display: flex;
         flex-wrap: wrap;
-        gap: 18px;
+        gap: 0.8rem 1rem;
         align-items: center;
       }
 
       .cta {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 176px;
-        min-height: 54px;
-        padding: 14px 22px;
-        border: 1px solid var(--ink);
-        border-radius: 999px;
-        background: var(--bg);
-        color: var(--ink);
-        text-decoration: none;
-        font-family: "IBM Plex Mono", monospace;
+        display: inline-block;
+        padding: 0.4rem 0.75rem;
+        background: #ffffff;
+        border: 1px solid #d0d0d0;
+        border-radius: 6px;
+        box-shadow: 0 2px 0 #c0c0c0;
+        color: #333333;
+        font-family: var(--font-mono);
         font-size: 0.8rem;
-        font-weight: 600;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        transition: background 160ms ease, color 160ms ease;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        text-decoration: none;
+        transition: transform 0.1s ease, box-shadow 0.1s ease;
       }
 
-      .cta:hover,
-      .cta:focus-visible {
-        background: var(--ink);
-        color: var(--bg);
+      .cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 0 #c0c0c0;
       }
 
-      .cta:focus-visible {
-        outline: 2px solid rgba(122, 74, 38, 0.22);
-        outline-offset: 4px;
+      .cta:active {
+        transform: translateY(2px);
+        box-shadow: 0 0 0 #c0c0c0;
       }
 
       .link-note {
-        margin: 0;
-        max-width: 29ch;
+        max-width: 32ch;
         color: var(--muted);
         font-size: 0.74rem;
         line-height: 1.6;
       }
 
-      .bottom-nav {
-        position: fixed;
-        left: 50%;
-        bottom: 18px;
-        z-index: 20;
-        width: min(calc(100vw - 32px), 420px);
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        align-items: center;
-        justify-content: center;
-        padding: 8px;
-        border: 1px solid var(--rule);
-        border-radius: 999px;
-        background: var(--bg);
-        transform: translateX(-50%);
-      }
-
-      .tab-link {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        flex: 1 1 0;
-        min-width: 0;
-        padding: 12px 16px;
-        border: 1px solid transparent;
-        border-radius: 999px;
-        background: transparent;
-        color: var(--muted);
-        text-decoration: none;
-        font-family: "IBM Plex Mono", monospace;
-        font-size: 0.74rem;
-        font-weight: 500;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        transition:
-          transform 180ms ease,
-          background 180ms ease,
-          color 180ms ease,
-          border-color 180ms ease;
-      }
-
-      .tab-link:hover,
-      .tab-link:focus-visible {
-        background: #f5f5f5;
-        color: var(--ink);
-        border-color: var(--rule);
-      }
-
-      .tab-link:focus-visible {
-        outline: 2px solid rgba(122, 74, 38, 0.22);
-        outline-offset: 4px;
-      }
-
-      .tab-link.is-current,
-      .tab-link[aria-current="page"] {
-        background: var(--ink);
-        color: var(--bg);
-        border-color: var(--ink);
-      }
-
       @media (max-width: 720px) {
-        .page {
-          padding: 22px 20px 108px;
+        body {
+          padding: 1.5rem 1rem 3rem;
         }
 
         .title {
           font-size: clamp(2.7rem, 15vw, 4rem);
         }
 
-        .document {
-          gap: 42px;
-        }
-
-        .doc-section + .doc-section {
-          padding-top: 34px;
-        }
-
-        .section-title {
-          font-size: clamp(2rem, 10vw, 3rem);
-        }
-
         .stanza,
-        .footer-copy,
         .section-copy,
         .policy-text,
         .policy-list,
         .policy-sublist,
-        .join-list {
+        .join-list,
+        .footer-copy,
+        .policy-callout {
           max-width: none;
-        }
-
-        .stanza {
-          font-size: clamp(1.18rem, 5.2vw, 1.42rem);
         }
 
         .policy-section {
           grid-template-columns: 1fr;
-          gap: 8px;
-        }
-
-        .tab-link {
-          flex-basis: calc(33.333% - 6px);
-        }
-
-        .dropcap {
-          padding-top: 2px;
-          padding-right: 8px;
-          font-size: 3.6rem;
+          gap: 0.5rem;
         }
       }
     </style>
   </head>
   <body>
     <main class="page">
-      <article class="letter">
-        <header class="header">
-          <p class="eyebrow">Modern Faber</p>
-          <h1 class="title">{heroTitle}</h1>
+      <header class="site-header">
+        <h1 class="brand"><a href="/">Modern Faber</a></h1>
+        <p class="site-copy">
+          A weekly standard for builders who care about shipped work, visible proof, and showing
+          up every week.
+        </p>
+      </header>
+
+      <nav class="main-nav" aria-label="Page navigation">
+        {
+          navItems.map((item) => (
+            <a href={item.href} aria-current={currentView === item.key ? "page" : undefined}>
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+
+      <div class="rule" aria-hidden="true"></div>
+
+      <article class="document">
+        <header class="hero">
+          <p class="eyebrow">{currentLabel}</p>
+          <h2 class="title">{heroTitle}</h2>
           {meta.length > 0 && (
             <div class="meta">
               {meta.map((item) => <span>{item}</span>)}
@@ -455,26 +417,8 @@ const navItems = [
           )}
         </header>
 
-        <div class="rule" aria-hidden="true"></div>
-
-        <div class="document">
-          <slot />
-        </div>
+        <slot />
       </article>
     </main>
-
-    <nav class="bottom-nav" aria-label="Page navigation">
-      {
-        navItems.map((item) => (
-          <a
-            class:list={["tab-link", currentView === item.key && "is-current"]}
-            href={item.href}
-            aria-current={currentView === item.key ? "page" : undefined}
-          >
-            {item.label}
-          </a>
-        ))
-      }
-    </nav>
   </body>
 </html>
