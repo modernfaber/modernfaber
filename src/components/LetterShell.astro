@@ -44,7 +44,7 @@ const currentLabel = navItems.find((item) => item.key === currentView)?.label ??
         --muted: #666666;
         --border: #eeeeee;
         --border-strong: #d8d8d8;
-        --max-width: 640px;
+        --max-width: 540px;
         --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         --font-serif: "Instrument Serif", serif;
         --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
@@ -88,31 +88,6 @@ const currentLabel = navItems.find((item) => item.key === currentView)?.label ??
       .page {
         display: grid;
         gap: 1.5rem;
-      }
-
-      .site-header {
-        display: grid;
-        gap: 0.45rem;
-      }
-
-      .brand {
-        margin: 0;
-        font-family: var(--font-serif);
-        font-size: clamp(2.4rem, 8vw, 3.35rem);
-        font-style: italic;
-        font-weight: 400;
-        letter-spacing: -0.02em;
-        line-height: 0.94;
-      }
-
-      .brand a {
-        text-decoration: none;
-      }
-
-      .site-copy {
-        max-width: 41ch;
-        color: var(--muted);
-        text-wrap: pretty;
       }
 
       .main-nav {
@@ -330,6 +305,23 @@ const currentLabel = navItems.find((item) => item.key === currentView)?.label ??
         font-size: clamp(1.05rem, 2.2vw, 1.14rem);
       }
 
+      .manifesto-signature {
+        display: grid;
+        justify-items: end;
+        padding-top: 0.5rem;
+      }
+
+      .signature-mark {
+        margin: 0;
+        font-family: var(--font-serif);
+        font-size: clamp(2rem, 6vw, 2.8rem);
+        font-style: italic;
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        line-height: 0.94;
+        text-align: right;
+      }
+
       .cta-row {
         display: flex;
         flex-wrap: wrap;
@@ -400,12 +392,14 @@ const currentLabel = navItems.find((item) => item.key === currentView)?.label ??
   </head>
   <body>
     <main class="page">
-      <header class="site-header">
-        <h1 class="brand"><a href="/">Modern Faber</a></h1>
-        <p class="site-copy">
-          A weekly standard for builders who care about shipped work, visible proof, and showing
-          up every week.
-        </p>
+      <header class="hero">
+        <p class="eyebrow">{currentLabel}</p>
+        <h1 class="title">{heroTitle}</h1>
+        {meta.length > 0 && (
+          <div class="meta">
+            {meta.map((item) => <span>{item}</span>)}
+          </div>
+        )}
       </header>
 
       <nav class="main-nav" aria-label="Page navigation">
@@ -421,16 +415,6 @@ const currentLabel = navItems.find((item) => item.key === currentView)?.label ??
       <div class="rule" aria-hidden="true"></div>
 
       <article class="document">
-        <header class="hero">
-          <p class="eyebrow">{currentLabel}</p>
-          <h2 class="title">{heroTitle}</h2>
-          {meta.length > 0 && (
-            <div class="meta">
-              {meta.map((item) => <span>{item}</span>)}
-            </div>
-          )}
-        </header>
-
         <slot />
       </article>
     </main>
