@@ -1,4 +1,6 @@
 ---
+import { siteName } from "../lib/site";
+
 type ViewKey = "manifesto" | "policy" | "contact";
 
 interface Props {
@@ -10,14 +12,13 @@ interface Props {
 }
 
 const { currentView, description, heroTitle, meta = [], title } = Astro.props;
+const hasSplitMeta = meta.length === 2;
 
 const navItems = [
   { key: "manifesto", href: "/", label: "Manifesto" },
   { key: "policy", href: "/policy", label: "Policy" },
   { key: "contact", href: "/contact", label: "Contact" },
 ] as const;
-
-const currentLabel = navItems.find((item) => item.key === currentView)?.label ?? heroTitle;
 ---
 
 <!doctype html>
@@ -26,6 +27,14 @@ const currentLabel = navItems.find((item) => item.key === currentView)?.label ??
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#ffffff" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
     <title>{title}</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
@@ -118,17 +127,13 @@ const currentLabel = navItems.find((item) => item.key === currentView)?.label ??
         gap: 0.85rem;
       }
 
-      .eyebrow,
       .meta,
-      .section-label,
       .policy-number,
       .policy-callout,
       .link-note {
         font-family: var(--font-mono);
       }
 
-      .eyebrow,
-      .section-label,
       .policy-number {
         color: var(--muted);
         font-size: 0.74rem;
@@ -148,10 +153,30 @@ const currentLabel = navItems.find((item) => item.key === currentView)?.label ??
 
       .meta {
         display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem 1rem;
+        align-items: center;
         color: var(--muted);
         font-size: 0.78rem;
+        max-width: 40ch;
+      }
+
+      .meta--split {
+        gap: 0.75rem;
+      }
+
+      .meta--list {
+        flex-wrap: wrap;
+        gap: 0.5rem 1rem;
+      }
+
+      .meta-item {
+        white-space: nowrap;
+      }
+
+      .meta-divider {
+        flex: 1 1 auto;
+        min-width: 2.25rem;
+        height: 1px;
+        background: var(--border-strong);
       }
 
       .document {
@@ -368,6 +393,7 @@ const currentLabel = navItems.find((item) => item.key === currentView)?.label ??
 
         .stanza,
         .stanza-art,
+        .meta,
         .section-copy,
         .policy-text,
         .policy-list,
@@ -388,12 +414,21 @@ const currentLabel = navItems.find((item) => item.key === currentView)?.label ??
   <body>
     <main class="page">
       <header class="hero">
-        <p class="eyebrow">{currentLabel}</p>
         <h1 class="title">{heroTitle}</h1>
         {meta.length > 0 && (
-          <div class="meta">
-            {meta.map((item) => <span>{item}</span>)}
-          </div>
+          hasSplitMeta ? (
+            <div class="meta meta--split" aria-label="Page metadata">
+              <span class="meta-item">{meta[0]}</span>
+              <span class="meta-divider" aria-hidden="true"></span>
+              <span class="meta-item">{meta[1]}</span>
+            </div>
+          ) : (
+            <div class="meta meta--list" aria-label="Page metadata">
+              {meta.map((item) => (
+                <span class="meta-item">{item}</span>
+              ))}
+            </div>
+          )
         )}
       </header>
 

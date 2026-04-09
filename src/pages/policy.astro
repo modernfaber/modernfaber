@@ -3,18 +3,17 @@ import LetterShell from "../components/LetterShell.astro";
 ---
 
 <LetterShell
-  title="Community Policy | Modern Faber"
-  description="The operating policy behind Modern Faber's weekly standard for builders."
+  title="Policy | Modern Faber"
+  description="The rules behind Modern Faber's weekly cadence, membership bar, and enforcement."
   heroTitle="Community Policy"
-  meta={["Operating standard", "Read precisely"]}
+  meta={["Weekly rules", "Read closely"]}
   currentView="policy"
 >
   <section class="doc-section">
     <div class="section-head">
-      <p class="section-label">Internal Operating Policy</p>
       <p class="section-copy">
-        Modern Faber exists to enforce a weekly standard. If meaningful work is not shipping, the
-        system is failing.
+        Modern Faber is built around one simple idea. If meaningful work is not being shipped
+        every week, the group has stopped doing its job.
       </p>
     </div>
 
@@ -24,12 +23,11 @@ import LetterShell from "../components/LetterShell.astro";
         <div class="policy-body">
           <h2 class="policy-title">Objective</h2>
           <p class="policy-text">
-            This group is designed to produce consistent, high-quality output through enforced
-            accountability.
+            The point of this group is not discussion, inspiration, or vague accountability. The
+            point is steady output from people who care about craft.
           </p>
           <p class="policy-callout">
-            Everything optimizes for one outcome: members ship meaningful work every week. If this
-            is not happening, the system is failing.
+            If members are not shipping meaningful work, the system is failing.
           </p>
         </div>
       </li>
@@ -39,11 +37,11 @@ import LetterShell from "../components/LetterShell.astro";
         <div class="policy-body">
           <h2 class="policy-title">Operating Principles</h2>
           <ol class="policy-list">
-            <li>Output is the only signal that matters.</li>
-            <li>Consistency beats intensity.</li>
-            <li>Constraints create quality.</li>
-            <li>Social pressure is a feature, not a bug.</li>
-            <li>Removal is necessary to maintain standards.</li>
+            <li>Work counts more than intent.</li>
+            <li>A steady weekly pace beats occasional intensity.</li>
+            <li>Constraints force better decisions.</li>
+            <li>A little pressure is useful.</li>
+            <li>Standards slip when removals do not happen.</li>
           </ol>
         </div>
       </li>
@@ -52,13 +50,16 @@ import LetterShell from "../components/LetterShell.astro";
         <div class="policy-number">03</div>
         <div class="policy-body">
           <h2 class="policy-title">System Design (Non-Negotiable)</h2>
-          <p class="policy-text">Weekly cadence is fixed. There is no rolling submission window.</p>
+          <p class="policy-text">
+            The cadence is fixed. We do not do rolling windows because rolling windows turn into
+            soft promises.
+          </p>
           <ul class="policy-list">
             <li>Fixed weekly deadline.</li>
             <li>All submissions posted before deadline.</li>
             <li>No batching and no skipping weeks.</li>
           </ul>
-          <p class="policy-text">Submission format is strict and non-negotiable.</p>
+          <p class="policy-text">Submission format is intentionally small so the work stays clear.</p>
           <ul class="policy-list">
             <li>
               <strong>[Output]</strong>
@@ -80,7 +81,7 @@ import LetterShell from "../components/LetterShell.astro";
               </ul>
             </li>
           </ul>
-          <p class="policy-callout">No deviation from format.</p>
+          <p class="policy-callout">Keep the format tight. It makes the work comparable.</p>
         </div>
       </li>
 
@@ -88,21 +89,21 @@ import LetterShell from "../components/LetterShell.astro";
         <div class="policy-number">04</div>
         <div class="policy-body">
           <h2 class="policy-title">Enforcement Mechanism</h2>
-          <p class="policy-text">This group survives on enforcement.</p>
+          <p class="policy-text">This only works if the rules mean something.</p>
           <ul class="policy-list">
-            <li>2 consecutive missed submissions leads to removal.</li>
-            <li>3 total misses, even if non-consecutive, leads to removal.</li>
+            <li>2 consecutive missed submissions lead to removal.</li>
+            <li>3 total misses, even if non-consecutive, lead to removal.</li>
             <li>Repeated low-effort output leads to removal.</li>
             <li>No engagement, including no comments or feedback, leads to removal.</li>
           </ul>
-          <p class="policy-callout">No exceptions.</p>
+          <p class="policy-callout">No exceptions, because one exception becomes the precedent.</p>
           <p class="policy-text">Low effort includes the following:</p>
           <ul class="policy-list">
             <li>No meaningful progress since the last submission.</li>
             <li>Superficial updates that are cosmetic or trivial.</li>
             <li>Recycled or old work.</li>
           </ul>
-          <p class="policy-text">Judgment is made by the operator.</p>
+          <p class="policy-text">The operator makes the call.</p>
         </div>
       </li>
 
@@ -110,6 +111,10 @@ import LetterShell from "../components/LetterShell.astro";
         <div class="policy-number">05</div>
         <div class="policy-body">
           <h2 class="policy-title">Membership Pipeline</h2>
+          <p class="policy-text">
+            We are screening for people who are already building, not people who like the idea of
+            building.
+          </p>
           <p class="policy-text">Entry requirements:</p>
           <ul class="policy-list">
             <li>Proof of recent work from within the last two weeks.</li>
@@ -122,7 +127,7 @@ import LetterShell from "../components/LetterShell.astro";
             <li>What was hard about it?</li>
             <li>What did you iterate on multiple times?</li>
           </ul>
-          <p class="policy-callout">Reject fast if the answers are vague.</p>
+          <p class="policy-callout">If the answers are vague, the fit probably is too.</p>
         </div>
       </li>
 
@@ -130,6 +135,9 @@ import LetterShell from "../components/LetterShell.astro";
         <div class="policy-number">06</div>
         <div class="policy-body">
           <h2 class="policy-title">Onboarding Protocol</h2>
+          <p class="policy-text">
+            Before anyone gets a Slack invite, they should know exactly what they are walking into.
+          </p>
           <p class="policy-text">Before the Slack invite:</p>
           <ul class="policy-list">
             <li>Review the policy. This is mandatory.</li>
@@ -140,7 +148,7 @@ import LetterShell from "../components/LetterShell.astro";
             <li>Submit within the first cycle.</li>
             <li>Failure to submit results in immediate removal.</li>
           </ul>
-          <p class="policy-callout">Filter early, not later.</p>
+          <p class="policy-callout">Filter early. It is kinder to everyone.</p>
         </div>
       </li>
 
@@ -148,6 +156,7 @@ import LetterShell from "../components/LetterShell.astro";
         <div class="policy-number">07</div>
         <div class="policy-body">
           <h2 class="policy-title">Slack Structure (Locked)</h2>
+          <p class="policy-text">The Slack exists to support the work, not distract from it.</p>
           <p class="policy-text">Channels:</p>
           <ul class="policy-list">
             <li><strong>#build</strong> for submissions only.</li>
@@ -167,7 +176,10 @@ import LetterShell from "../components/LetterShell.astro";
         <div class="policy-number">08</div>
         <div class="policy-body">
           <h2 class="policy-title">Feedback Standard</h2>
-          <p class="policy-text">Feedback must be specific, actionable, and direct.</p>
+          <p class="policy-text">
+            Good feedback is concrete. It should point to a decision, a tradeoff, or a missed
+            opportunity.
+          </p>
           <p class="policy-text">Avoid the following:</p>
           <ul class="policy-list">
             <li>Praise without substance.</li>
@@ -183,14 +195,14 @@ import LetterShell from "../components/LetterShell.astro";
         <div class="policy-number">09</div>
         <div class="policy-body">
           <h2 class="policy-title">Operator Responsibilities</h2>
-          <p class="policy-text">The group requires active enforcement.</p>
+          <p class="policy-text">The operator is here to keep the room honest.</p>
           <ul class="policy-list">
             <li>Track weekly submissions.</li>
             <li>Enforce removals without delay.</li>
             <li>Maintain the standard of output.</li>
             <li>Admit new members selectively.</li>
           </ul>
-          <p class="policy-callout">Failure here means group collapse.</p>
+          <p class="policy-callout">If enforcement gets soft, the group gets noisy.</p>
         </div>
       </li>
 
@@ -198,6 +210,7 @@ import LetterShell from "../components/LetterShell.astro";
         <div class="policy-number">10</div>
         <div class="policy-body">
           <h2 class="policy-title">Failure Modes (Watch Closely)</h2>
+          <p class="policy-text">These are the patterns to watch for before the standard drifts.</p>
           <ol class="policy-list">
             <li>Activity decay. Fix it with stricter enforcement.</li>
             <li>Quality dilution. Remove the weakest contributors quickly.</li>
@@ -211,6 +224,7 @@ import LetterShell from "../components/LetterShell.astro";
         <div class="policy-number">11</div>
         <div class="policy-body">
           <h2 class="policy-title">Growth Strategy</h2>
+          <p class="policy-text">This works better as a small room with a clear bar.</p>
           <ul class="policy-list">
             <li>Start with 3 to 5 high-quality members.</li>
             <li>Add slowly, one person at a time.</li>
@@ -224,6 +238,7 @@ import LetterShell from "../components/LetterShell.astro";
         <div class="policy-number">12</div>
         <div class="policy-body">
           <h2 class="policy-title">Culture</h2>
+          <p class="policy-text">The culture is simple and it should stay that way.</p>
           <ul class="policy-list">
             <li>High accountability.</li>
             <li>Low tolerance for excuses.</li>
@@ -237,7 +252,7 @@ import LetterShell from "../components/LetterShell.astro";
         <div class="policy-number">13</div>
         <div class="policy-body">
           <h2 class="policy-title">Core Rule</h2>
-          <p class="policy-callout">If you are not building, you are removed.</p>
+          <p class="policy-callout">If you stop building, you are gone.</p>
           <p class="policy-text">Everything else is secondary.</p>
         </div>
       </li>
