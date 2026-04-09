@@ -113,11 +113,6 @@ const currentLabel = navItems.find((item) => item.key === currentView)?.label ??
         border-bottom: 2px solid var(--ink);
       }
 
-      .rule {
-        height: 1px;
-        background: var(--border);
-      }
-
       .hero {
         display: grid;
         gap: 0.85rem;
@@ -411,9 +406,6 @@ const currentLabel = navItems.find((item) => item.key === currentView)?.label ??
           ))
         }
       </nav>
-
-      <div class="rule" aria-hidden="true"></div>
-
       <article class="document">
         <slot />
       </article>
