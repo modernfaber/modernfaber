@@ -54,6 +54,7 @@ const navItems = [
         --border: #eeeeee;
         --border-strong: #d8d8d8;
         --max-width: 540px;
+        --copy-width: 52ch;
         --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         --font-serif: "Instrument Serif", serif;
         --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
@@ -225,10 +226,9 @@ const navItems = [
       .section-copy,
       .policy-text,
       .footer-copy {
-        max-width: 40ch;
+        max-width: var(--copy-width);
         font-size: 1rem;
         line-height: 1.75;
-        text-wrap: pretty;
       }
 
       .body {
@@ -237,15 +237,15 @@ const navItems = [
       }
 
       .stanza {
-        max-width: 40ch;
+        max-width: var(--copy-width);
         font-size: clamp(1.02rem, 2vw, 1.08rem);
         line-height: 1.85;
-        text-wrap: pretty;
       }
 
       .stanza-stack {
         display: grid;
         gap: 0.8rem;
+        max-width: var(--copy-width);
       }
 
       .stanza-art {
@@ -289,7 +289,7 @@ const navItems = [
       .policy-list,
       .policy-sublist,
       .join-list {
-        max-width: 40ch;
+        max-width: var(--copy-width);
         margin: 0;
         padding-left: 1.2em;
         font-size: 1rem;
@@ -307,7 +307,7 @@ const navItems = [
       }
 
       .policy-callout {
-        max-width: 40ch;
+        max-width: var(--copy-width);
         padding-left: 1rem;
         border-left: 2px solid var(--border-strong);
         color: #555555;
@@ -366,7 +366,7 @@ const navItems = [
       }
 
       .link-note {
-        max-width: 32ch;
+        max-width: calc(var(--copy-width) - 8ch);
         color: var(--muted);
         font-size: 0.74rem;
         line-height: 1.6;
