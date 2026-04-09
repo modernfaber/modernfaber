@@ -1,38 +1,19 @@
 ---
-import LetterShell from "../components/LetterShell.astro";
-import { joinUrl } from "../lib/site";
+const destination = "/join";
 ---
 
-<LetterShell
-  title="Contact | Modern Faber"
-  description="How to join Modern Faber and what to bring before you enter."
-  heroTitle="Contact"
-  meta={["For builders", "Bring recent work"]}
-  currentView="contact"
->
-  <section class="doc-section">
-    <div class="section-head">
-      <h2 class="section-title">Enter</h2>
-      <p class="section-copy">
-        Read the policy, bring recent work, and expect to submit in your first week. The bar is
-        simple. Show that you are already building.
-      </p>
-    </div>
-
-    <div class="join-panel">
-      <p class="footer-copy">
-        If this feels obvious, you are probably close.<br />
-        If it feels heavy, you probably do not want this kind of room.
-      </p>
-      <ul class="join-list">
-        <li>Read the policy before you join.</li>
-        <li>Bring proof of recent self-directed work.</li>
-        <li>Submit in your first week or lose your spot.</li>
-      </ul>
-      <div class="cta-row">
-        <a class="cta" href={joinUrl} target="_blank" rel="noreferrer">Accept the invitation</a>
-        <p class="link-note">The invitation gets you in. Your work decides whether you stay.</p>
-      </div>
-    </div>
-  </section>
-</LetterShell>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0;url=${destination}`} />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Redirecting to Join | Modern Faber</title>
+    <link rel="canonical" href={destination} />
+  </head>
+  <body>
+    <p>
+      Redirecting to <a href={destination}>Join</a>.
+    </p>
+  </body>
+</html>
