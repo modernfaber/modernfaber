@@ -1,6 +1,6 @@
 ---
 import LetterShell from "../components/LetterShell.astro";
-import { joinUrl } from "../lib/site";
+import { inquiryEmailAddress, inquiryEmailUrl } from "../lib/site";
 ---
 
 <LetterShell
@@ -30,8 +30,10 @@ import { joinUrl } from "../lib/site";
         <li>Submit in your first week or lose your spot.</li>
       </ul>
       <div class="cta-row">
-        <a class="cta" href={joinUrl} target="_blank" rel="noreferrer">Accept the invitation</a>
-        <p class="link-note">The invitation gets you in. Your work decides whether you stay.</p>
+        <a class="cta" href={inquiryEmailUrl}>Email {inquiryEmailAddress}</a>
+        <p class="link-note">
+          This opens a drafted inquiry. Include recent work and why you want in.
+        </p>
       </div>
     </div>
   </section>

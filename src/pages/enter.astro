@@ -1,5 +1,5 @@
 ---
-import { joinUrl } from "../lib/site";
+import { inquiryEmailAddress, inquiryEmailUrl } from "../lib/site";
 ---
 
 <!doctype html>
@@ -9,19 +9,19 @@ import { joinUrl } from "../lib/site";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Redirecting you to the Modern Faber invitation."
+      content="Opening your email client for a Modern Faber inquiry."
     />
     <meta name="robots" content="noindex, nofollow" />
     <meta name="theme-color" content="#ffffff" />
     <meta property="og:title" content="Enter | Modern Faber" />
-    <meta property="og:description" content="Redirecting you to the Modern Faber invitation." />
+    <meta property="og:description" content="Opening your email client for a Modern Faber inquiry." />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Modern Faber" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Enter | Modern Faber" />
-    <meta name="twitter:description" content="Redirecting you to the Modern Faber invitation." />
+    <meta name="twitter:description" content="Opening your email client for a Modern Faber inquiry." />
     <title>Enter | Modern Faber</title>
-    <meta http-equiv="refresh" content={`0;url=${joinUrl}`} />
+    <meta http-equiv="refresh" content={`0;url=${inquiryEmailUrl}`} />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
@@ -145,19 +145,22 @@ import { joinUrl } from "../lib/site";
         box-shadow: 0 0 0 #c0c0c0;
       }
     </style>
+    <script define:vars={{ inquiryEmailUrl }}>
+      window.location.href = inquiryEmailUrl;
+    </script>
   </head>
   <body>
     <main>
       <a class="brand" href="/">Modern Faber</a>
       <p class="eyebrow">Modern Faber</p>
-      <h1>Opening the letter</h1>
+      <h1>Opening your email client</h1>
       <div class="rule" aria-hidden="true"></div>
       <div class="body">
         <p>
-          If the invitation does not open automatically, use the link below. Then come in with
-          work, not a long bio.
+          If your email client does not open automatically, use the link below and send a brief
+          inquiry with recent work.
         </p>
-        <a class="cta" href={joinUrl} target="_blank" rel="noreferrer">Accept the invitation</a>
+        <a class="cta" href={inquiryEmailUrl}>Email {inquiryEmailAddress}</a>
       </div>
     </main>
   </body>
