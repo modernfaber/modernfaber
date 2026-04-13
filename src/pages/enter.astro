@@ -1,4 +1,5 @@
 ---
+import SiteFooter from "../components/SiteFooter.astro";
 import { inquiryEmailAddress, inquiryEmailUrl } from "../lib/site";
 ---
 
@@ -162,6 +163,7 @@ import { inquiryEmailAddress, inquiryEmailUrl } from "../lib/site";
         </p>
         <a class="cta" href={inquiryEmailUrl}>Email {inquiryEmailAddress}</a>
       </div>
+      <SiteFooter />
     </main>
   </body>
 </html>

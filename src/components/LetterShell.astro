@@ -1,4 +1,5 @@
 ---
+import SiteFooter from "./SiteFooter.astro";
 import { siteName } from "../lib/site";
 
 type ViewKey = "manifesto" | "policy" | "join";
@@ -433,6 +434,7 @@ const navItems = [
       <article class="document">
         <slot />
       </article>
+      <SiteFooter />
     </main>
   </body>
 </html>
