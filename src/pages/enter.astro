@@ -71,6 +71,18 @@ import { inquiryEmailAddress, inquiryEmailUrl } from "../lib/site";
         color: inherit;
       }
 
+      a[href],
+      button,
+      summary,
+      [role="button"],
+      [role="link"],
+      input[type="button"],
+      input[type="submit"],
+      input[type="reset"],
+      label[for] {
+        cursor: pointer;
+      }
+
       .brand {
         font-family: var(--font-serif);
         font-size: clamp(2.4rem, 8vw, 3.35rem);
