@@ -1,6 +1,6 @@
 export const siteName = "Modern Faber";
 
-export const inquiryEmailAddress = "john@char.com";
+export const inquiryEmailAddress = "john@fastrepl.com";
 
 const inquiryEmailParams = new URLSearchParams({
   subject: "Modern Faber inquiry",
