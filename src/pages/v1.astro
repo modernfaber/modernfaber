@@ -1,0 +1,121 @@
+---
+import { inquiryEmailAddress, inquiryEmailUrl } from "../lib/site";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Design variation: typewritten letter." />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#f4f1ea" />
+    <title>V1 Typewriter | Modern Faber</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <style is:global>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        background: #f4f1ea;
+      }
+
+      body {
+        min-height: 100vh;
+        max-width: 66ch;
+        margin: 0 auto;
+        padding: 72px 24px 96px;
+        color: #26221b;
+        background: #f4f1ea;
+        font-family: "Courier New", Courier, ui-monospace, monospace;
+        font-size: 15px;
+        line-height: 26px;
+      }
+
+      main {
+        display: grid;
+        gap: 26px;
+      }
+
+      .letterhead {
+        display: grid;
+        gap: 4px;
+        padding-bottom: 26px;
+        border-bottom: 1px solid #26221b;
+      }
+
+      h1 {
+        font-size: inherit;
+        font-weight: 700;
+        letter-spacing: 0.35em;
+      }
+
+      .dateline {
+        letter-spacing: 0.12em;
+      }
+
+      .sep {
+        text-align: center;
+        letter-spacing: 0.6em;
+      }
+
+      .salutation {
+        font-weight: 700;
+      }
+
+      .sig {
+        padding-top: 12px;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 40px 20px 64px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="letterhead">
+        <h1>MODERN FABER</h1>
+        <p class="dateline">SUMMER 2026 &middot; NO. 1</p>
+      </header>
+
+      <p class="salutation">To the fabers,</p>
+
+      <p>
+        Faber is an old word for a maker &mdash; the smith at the forge, the carpenter at the
+        bench, the hand that shapes raw material into something that did not exist before.
+        <em>Homo faber</em>: the one who makes. There have never been fewer. Not because people
+        stopped wanting to make things, but because talking about making became easier than
+        making &mdash; the feed rewards the announcement, not the object, and whole rooms fill
+        with people circling the work they say they want to do.
+      </p>
+
+      <p class="sep" aria-hidden="true">* * *</p>
+
+      <p>
+        Modern Faber is a room for the ones who still make. One rule holds it together: come
+        back every week with something real, and say what you changed. There is no audience
+        here, no applause &mdash; only other fabers paying attention to the details you almost
+        skipped. That attention costs something. It is meant to. Keep the rhythm long enough
+        and you are left with a body of work, a sharper eye, and the few people you actually
+        want beside you at the bench.
+      </p>
+
+      <p class="sig">
+        Join us: <a href={inquiryEmailUrl}>{inquiryEmailAddress}</a><br />
+        &mdash; M.F.
+      </p>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,134 @@
+---
+import { inquiryEmailAddress, inquiryEmailUrl } from "../lib/site";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Design variation: quiet editorial." />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>V3 Editorial | Modern Faber</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <style is:global>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        background: #ffffff;
+      }
+
+      body {
+        min-height: 100vh;
+        max-width: 620px;
+        margin: 0 auto;
+        padding: 96px 24px 120px;
+        color: #171717;
+        background: #ffffff;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 17px;
+        line-height: 1.85;
+      }
+
+      main {
+        display: grid;
+        gap: 2.2rem;
+      }
+
+      h1 {
+        font-family: "Instrument Serif", Georgia, serif;
+        font-size: clamp(3rem, 9vw, 4.4rem);
+        font-weight: 400;
+        font-style: italic;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+
+      .kicker {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #8a8a8a;
+      }
+
+      .letter {
+        display: grid;
+        gap: 1.6rem;
+      }
+
+      .letter p::first-letter {
+        margin-right: 0.02em;
+      }
+
+      .join {
+        padding-top: 0.4rem;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
+      }
+
+      a:hover {
+        text-decoration-thickness: 2px;
+      }
+
+      .join a {
+        font-style: italic;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 64px 20px 88px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="kicker">Modern Faber</p>
+        <h1>to the fabers</h1>
+      </header>
+
+      <div class="letter">
+        <p>
+          Faber is an old word for a maker &mdash; the smith at the forge, the carpenter at the
+          bench, the hand that shapes raw material into something that did not exist before.
+          <em>Homo faber</em>: the one who makes. There have never been fewer. Not because
+          people stopped wanting to make things, but because talking about making became easier
+          than making &mdash; the feed rewards the announcement, not the object, and whole
+          rooms fill with people circling the work they say they want to do.
+        </p>
+
+        <p>
+          Modern Faber is a room for the ones who still make. One rule holds it together: come
+          back every week with something real, and say what you changed. There is no audience
+          here, no applause &mdash; only other fabers paying attention to the details you
+          almost skipped. That attention costs something. It is meant to. Keep the rhythm long
+          enough and you are left with a body of work, a sharper eye, and the few people you
+          actually want beside you at the bench.
+        </p>
+      </div>
+
+      <p class="join">
+        <a href={inquiryEmailUrl}>become a modern faber &rarr;</a><br />
+        <span class="kicker">{inquiryEmailAddress}</span>
+      </p>
+    </main>
+  </body>
+</html>

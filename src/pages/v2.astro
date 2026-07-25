@@ -1,0 +1,133 @@
+---
+import { inquiryEmailAddress, inquiryEmailUrl } from "../lib/site";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Design variation: dark terminal." />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#0c0f0c" />
+    <title>V2 Terminal | Modern Faber</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <style is:global>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        background: #0c0f0c;
+      }
+
+      body {
+        min-height: 100vh;
+        padding: 40px;
+        color: #c9d1c9;
+        background: #0c0f0c;
+        font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Monaco, "Cascadia Mono",
+          Consolas, "Liberation Mono", monospace;
+        font-size: 13px;
+        line-height: 22px;
+      }
+
+      main {
+        display: grid;
+        gap: 22px;
+        justify-items: start;
+      }
+
+      .prompt {
+        color: #4ade80;
+      }
+
+      .cmd {
+        color: #e8ede8;
+      }
+
+      h1 {
+        font-size: inherit;
+        font-weight: 700;
+        color: #e8ede8;
+      }
+
+      .out {
+        max-width: 72ch;
+        color: #a8b3a8;
+      }
+
+      .out strong {
+        color: #e8ede8;
+        font-weight: 400;
+      }
+
+      a {
+        color: #4ade80;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      .cursor {
+        display: inline-block;
+        width: 0.6em;
+        height: 1em;
+        vertical-align: text-bottom;
+        background: #4ade80;
+        animation: blink 1s step-end infinite;
+      }
+
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .cursor {
+          animation: none;
+        }
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1><span class="prompt">~</span> modern-faber</h1>
+
+      <p><span class="prompt">$</span> <span class="cmd">cat letter.txt</span></p>
+
+      <p class="out">
+        Faber is an old word for a maker &mdash; the smith at the forge, the carpenter at the
+        bench, the hand that shapes raw material into something that did not exist before.
+        <strong><em>Homo faber</em>: the one who makes.</strong> There have never been fewer.
+        Not because people stopped wanting to make things, but because talking about making
+        became easier than making &mdash; the feed rewards the announcement, not the object,
+        and whole rooms fill with people circling the work they say they want to do.
+      </p>
+
+      <p class="out">
+        Modern Faber is a room for the ones who still make. One rule holds it together:
+        <strong>come back every week with something real, and say what you changed.</strong>
+        There is no audience here, no applause &mdash; only other fabers paying attention to
+        the details you almost skipped. That attention costs something. It is meant to. Keep
+        the rhythm long enough and you are left with a body of work, a sharper eye, and the
+        few people you actually want beside you at the bench.
+      </p>
+
+      <p>
+        <span class="prompt">$</span> <span class="cmd">join</span><br />
+        <span class="out">&rarr; mail <a href={inquiryEmailUrl}>{inquiryEmailAddress}</a> with recent work</span>
+      </p>
+
+      <p><span class="prompt">$</span> <span class="cursor" aria-hidden="true"></span></p>
+    </main>
+  </body>
+</html>
