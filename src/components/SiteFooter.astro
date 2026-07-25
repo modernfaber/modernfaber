@@ -1,11 +1,5 @@
 ---
 import { inquiryEmailAddress, inquiryEmailUrl, siteName } from "../lib/site";
-
-const navItems = [
-  { href: "/", label: "Manifesto" },
-  { href: "/policy", label: "Policy" },
-  { href: "/join", label: "Join" },
-];
 ---
 
 <footer class="site-footer" aria-label="Site footer">
@@ -13,11 +7,6 @@ const navItems = [
   <div class="site-footer__content">
     <p class="site-footer__brand">{siteName}</p>
     <nav class="site-footer__nav" aria-label="Footer navigation">
-      {
-        navItems.map((item) => (
-          <a href={item.href}>{item.label}</a>
-        ))
-      }
       <a href={inquiryEmailUrl}>Email {inquiryEmailAddress}</a>
     </nav>
   </div>
