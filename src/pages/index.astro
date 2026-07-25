@@ -1,10 +1,9 @@
 ---
-import ModernFaberSignature from "../components/ModernFaberSignature.astro";
 import { inquiryEmailUrl, siteName } from "../lib/site";
 
 const title = "Modern Faber";
 const description =
-  "A weekly standard for builders. Show up with something real, explain what you changed, do it again.";
+  "A letter to the fabers — the ones who still make things — and a room built for them.";
 ---
 
 <!doctype html>
@@ -124,19 +123,6 @@ const description =
         line-height: 1.85;
       }
 
-      .manifesto-signature {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding-top: 0.75rem;
-      }
-
-      .signature-mark {
-        flex: none;
-        width: 3.25rem;
-        height: 3.25rem;
-      }
-
       .join {
         display: grid;
         justify-items: start;
@@ -187,54 +173,27 @@ const description =
   <body>
     <main class="page">
       <header class="hero">
-        <h1 class="title">A Letter to Builders</h1>
+        <h1 class="title">To the Fabers</h1>
       </header>
 
       <article class="body">
         <p class="stanza">
-          Most groups slowly turn into conversation.<br /><br />
-          Links get shared. Ideas get circled.<br />
-          Nothing gets built.
+          Faber is an old word for a maker &mdash; the smith at the forge, the carpenter at the
+          bench, the hand that shapes raw material into something that did not exist before.
+          <em>Homo faber</em>: the one who makes. There have never been fewer. Not because people
+          stopped wanting to make things, but because talking about making became easier than
+          making &mdash; the feed rewards the announcement, not the object, and whole rooms fill
+          with people circling the work they say they want to do.
         </p>
 
         <p class="stanza">
-          Modern Faber exists to interrupt that.<br /><br />
-          This is a room where work is normal, deadlines are real, and taste shows up in the
-          decisions you made on an actual thing.
+          Modern Faber is a room for the ones who still make. One rule holds it together: come
+          back every week with something real, and say what you changed. There is no audience
+          here, no applause &mdash; only other fabers paying attention to the details you almost
+          skipped. That attention costs something. It is meant to. Keep the rhythm long enough
+          and you are left with a body of work, a sharper eye, and the few people you actually
+          want beside you at the bench.
         </p>
-
-        <p class="stanza">
-          The system is simple.<br /><br />
-          Show up every week with something real.<br />
-          Explain what you changed.<br />
-          Do it again.
-        </p>
-
-        <p class="stanza">
-          Miss twice and you are out.<br /><br />
-          No exceptions, because one exception becomes the precedent.
-        </p>
-
-        <p class="stanza">
-          There is no audience here. Only other builders paying attention &mdash; to your choices,
-          your revisions, the details other people skip.
-        </p>
-
-        <p class="stanza">
-          That costs something. It should.<br /><br />
-          The upside is a body of work, a sharper eye, and the people you actually want beside
-          you.
-        </p>
-
-        <p class="stanza">
-          If this sounds obvious, you are close.<br />
-          If it sounds heavy, this is not your room.
-        </p>
-
-        <footer class="manifesto-signature" aria-label="Signed Modern Faber">
-          <img class="signature-mark" src="/images/dither.svg" alt="" aria-hidden="true" />
-          <ModernFaberSignature />
-        </footer>
       </article>
 
       <section class="join" aria-label="Join Modern Faber">
