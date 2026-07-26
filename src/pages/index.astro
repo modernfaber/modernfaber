@@ -4,6 +4,18 @@ import { inquiryEmailAddress, inquiryEmailUrl, siteName } from "../lib/site";
 const title = "Modern Faber";
 const description =
   "Modern Faber is a high-trust, high-signal community built around rich, small-table meetups.";
+
+// Drawn in pen order: M, the connected "odern", the F stem, its crossbar, the
+// connected "aber", then the exit flourish. Rendered twice — once as the ghost
+// indent, once as the ink.
+const signatureStrokes = [
+  "M 16 58 C 18 44 22 28 28 22 C 33 18 33 32 32 42 C 31 50 31 55 32 58 C 34 44 40 26 46 21 C 51 18 50 32 49 42 C 48 50 48 55 49 58 C 51 50 55 44 60 42",
+  "M 60 44 C 62 36 70 32 76 36 C 82 40 81 53 74 56 C 66 59 60 51 63 44 C 66 39 72 38 78 40 C 84 38 90 38 92 42 C 89 36 80 39 79 47 C 78 55 87 61 93 55 C 95 52 96 46 96 42 C 97 32 98 22 99 16 C 100 26 98 44 97 54 C 98 51 102 49 106 49 C 110 47 116 42 113 39 C 110 36 105 41 106 47 C 108 55 116 59 122 54 C 124 52 125 51 127 50 C 130 44 133 38 135 41 C 137 44 140 42 143 41 C 141 45 140 52 140 58 C 141 52 144 48 148 47 C 149 44 150 50 150 58 C 150 48 154 40 159 41 C 163 42 162 52 162 58 C 163 52 167 48 172 47",
+  "M 230 12 C 218 9 207 12 205 22 C 202 34 199 46 197 60",
+  "M 190 41 C 200 38 211 37 221 36",
+  "M 244 42 C 240 36 231 37 230 46 C 229 55 238 61 243 55 C 245 52 245 46 244 42 C 244 50 244 55 245 58 C 246 54 249 50 253 49 C 257 46 261 30 263 18 C 264 28 261 46 260 55 C 262 49 269 47 272 51 C 275 55 270 60 264 57 C 268 56 272 53 275 51 C 279 49 285 44 282 40 C 279 37 274 42 275 48 C 277 56 285 60 291 55 C 293 53 294 52 296 51 C 299 45 302 39 304 42 C 306 45 309 43 312 42 C 310 46 309 53 309 58 C 310 53 313 49 317 48",
+  "M 317 48 C 328 51 344 49 356 41",
+];
 ---
 
 <!doctype html>
@@ -107,9 +119,90 @@ const description =
         }
       }
 
+      .signature {
+        width: 280px;
+        max-width: 100%;
+        height: auto;
+        margin-top: 20px;
+        overflow: visible;
+      }
+
+      .signature path {
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        /* Hidden until its turn, else the round cap leaves a dot on the page. */
+        visibility: hidden;
+        animation: draw 0.7s cubic-bezier(0.5, 0, 0.3, 1) forwards;
+      }
+
+      .sig-ink path {
+        stroke: #111111;
+        stroke-width: 2.2;
+      }
+
+      /* Sits a hair below the ink so each stroke leaves an indent behind it. */
+      .sig-ghost {
+        transform: translate(0.5px, 1.4px);
+      }
+
+      .sig-ghost path {
+        stroke: #dcdce0;
+        stroke-width: 3.2;
+      }
+
+      .signature path:nth-child(1) {
+        animation-delay: 0.3s;
+      }
+
+      .signature path:nth-child(2) {
+        animation-delay: 0.95s;
+        animation-duration: 1.05s;
+      }
+
+      .signature path:nth-child(3) {
+        animation-delay: 1.95s;
+        animation-duration: 0.45s;
+      }
+
+      .signature path:nth-child(4) {
+        animation-delay: 2.35s;
+        animation-duration: 0.28s;
+      }
+
+      .signature path:nth-child(5) {
+        animation-delay: 2.6s;
+        animation-duration: 1.05s;
+      }
+
+      .signature path:nth-child(6) {
+        animation-delay: 3.6s;
+        animation-duration: 0.4s;
+      }
+
+      @keyframes draw {
+        from {
+          stroke-dashoffset: 1;
+          visibility: visible;
+        }
+
+        to {
+          stroke-dashoffset: 0;
+          visibility: visible;
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .cursor {
           animation: none;
+        }
+
+        .signature path {
+          animation: none;
+          stroke-dashoffset: 0;
+          visibility: visible;
         }
       }
 
@@ -192,6 +285,15 @@ const description =
           </li>
         </ul>
       </section>
+
+      <svg class="signature" viewBox="0 0 372 84" role="img" aria-label="Signed, Modern Faber">
+        <g class="sig-ghost" aria-hidden="true">
+          {signatureStrokes.map((d) => <path d={d} pathLength="1" />)}
+        </g>
+        <g class="sig-ink">
+          {signatureStrokes.map((d) => <path d={d} pathLength="1" />)}
+        </g>
+      </svg>
     </main>
   </body>
 </html>
