@@ -21,6 +21,12 @@ const description =
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Xanh+Mono:ital@0;1&display=swap"
+    />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
@@ -74,6 +80,13 @@ const description =
       .label {
         font-size: inherit;
         font-weight: 400;
+      }
+
+      h1,
+      .label {
+        font-family: "Xanh Mono", ui-monospace, Menlo, monospace;
+        font-size: 15px;
+        letter-spacing: 0.04em;
       }
 
       a {
