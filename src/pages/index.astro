@@ -136,18 +136,21 @@ const signatureTiming = nibLengths.map((length) => {
         z-index: -1;
         /* Stops are in pixels, not percentages: the letter is a fixed ~575px
            column, so a percentage stop drifts off it as the window widens.
-           Hold the wash until the text ends, then clear fast. */
+           Hold the wash over the text, then let it dissolve slowly. */
         background-image: linear-gradient(
             to right,
             rgba(247, 247, 248, 0.97) 0,
             rgba(247, 247, 248, 0.94) 600px,
-            rgba(247, 247, 248, 0.5) 760px,
-            rgba(247, 247, 248, 0) 900px
+            rgba(247, 247, 248, 0.55) 900px,
+            rgba(247, 247, 248, 0.28) 1300px
           ),
           url("/images/palace.jpg");
         background-repeat: no-repeat;
         background-position: center, center right;
         background-size: cover;
+        /* The halftone at full strength competes with the letter; keep the
+           whole backdrop at partial strength so the text stays the subject. */
+        opacity: 0.55;
       }
 
       main {
