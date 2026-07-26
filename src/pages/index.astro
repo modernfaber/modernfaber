@@ -134,13 +134,15 @@ const signatureTiming = nibLengths.map((length) => {
         position: fixed;
         inset: 0;
         z-index: -1;
+        /* Stops are in pixels, not percentages: the letter is a fixed ~575px
+           column, so a percentage stop drifts off it as the window widens.
+           Hold the wash until the text ends, then clear fast. */
         background-image: linear-gradient(
             to right,
-            #f7f7f8 0%,
-            #f7f7f8 30%,
-            rgba(247, 247, 248, 0.92) 48%,
-            rgba(247, 247, 248, 0.6) 70%,
-            rgba(247, 247, 248, 0) 100%
+            rgba(247, 247, 248, 0.97) 0,
+            rgba(247, 247, 248, 0.94) 600px,
+            rgba(247, 247, 248, 0.5) 760px,
+            rgba(247, 247, 248, 0) 900px
           ),
           url("/images/palace.jpg");
         background-repeat: no-repeat;
@@ -269,10 +271,10 @@ const signatureTiming = nibLengths.map((length) => {
         body::before {
           background-image: linear-gradient(
               to right,
-              #f7f7f8 0%,
-              #f7f7f8 55%,
-              rgba(247, 247, 248, 0.9) 78%,
-              rgba(247, 247, 248, 0.75) 100%
+              rgba(247, 247, 248, 0.95) 0%,
+              rgba(247, 247, 248, 0.88) 50%,
+              rgba(247, 247, 248, 0.7) 78%,
+              rgba(247, 247, 248, 0.55) 100%
             ),
             url("/images/palace.jpg");
         }
