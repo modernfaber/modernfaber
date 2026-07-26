@@ -115,14 +115,37 @@ const signatureTiming = nibLengths.map((length) => {
       }
 
       body {
+        position: relative;
         min-height: 100vh;
         padding: 40px;
         color: #111111;
-        background: #f7f7f8;
+        /* Transparent so the backdrop below is not painted over. */
+        background: transparent;
         font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Monaco, "Cascadia Mono",
           Consolas, "Liberation Mono", monospace;
         font-size: 12px;
         line-height: 20px;
+      }
+
+      /* Backdrop: the palace sits off to the right, and the page colour is
+         washed over it from the left so the letter stays on clean paper. */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background-image: linear-gradient(
+            to right,
+            #f7f7f8 0%,
+            #f7f7f8 30%,
+            rgba(247, 247, 248, 0.92) 48%,
+            rgba(247, 247, 248, 0.6) 70%,
+            rgba(247, 247, 248, 0) 100%
+          ),
+          url("/images/palace.jpg");
+        background-repeat: no-repeat;
+        background-position: center, center right;
+        background-size: cover;
       }
 
       main {
@@ -237,6 +260,21 @@ const signatureTiming = nibLengths.map((length) => {
           animation: none;
           stroke-dashoffset: 0;
           visibility: visible;
+        }
+      }
+
+      /* Narrow screens: the text runs the full width, so keep the palace to a
+         faint edge instead of letting it run under the words. */
+      @media (max-width: 900px) {
+        body::before {
+          background-image: linear-gradient(
+              to right,
+              #f7f7f8 0%,
+              #f7f7f8 55%,
+              rgba(247, 247, 248, 0.9) 78%,
+              rgba(247, 247, 248, 0.75) 100%
+            ),
+            url("/images/palace.jpg");
         }
       }
 
