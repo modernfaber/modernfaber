@@ -3,7 +3,7 @@ import { inquiryEmailAddress, inquiryEmailUrl, siteName } from "../lib/site";
 
 const title = "Modern Faber";
 const description =
-  "A letter to the fabers — the ones who still make things — and a room built for them.";
+  "Modern Faber is a selective community for makers, with an open commons and meetups of three or four.";
 ---
 
 <!doctype html>
@@ -53,11 +53,8 @@ const description =
         justify-items: start;
       }
 
-      .letter {
-        display: grid;
-        gap: 20px;
-      }
-
+      .letter,
+      .model,
       .members,
       .member-list {
         display: grid;
@@ -133,6 +130,27 @@ const description =
           skipped. That attention costs something. It is meant to. Keep the rhythm long enough
           and you are left with a body of work, a sharper eye, and the few people you actually
           want beside you at the bench.
+        </p>
+      </section>
+
+      <p class="sep" aria-hidden="true">* * *</p>
+
+      <section class="model" aria-labelledby="model-heading">
+        <p class="label" id="model-heading">HOW IT WORKS:</p>
+        <p class="para">
+          <strong>THE ROOM.</strong> Entry is selective. Bring work that proves you can make
+          something difficult and make it well. Titles do not count. The work does.
+        </p>
+        <p class="para">
+          <strong>THE COMMONS.</strong> The commons stays open. Anyone can bring a serious
+          question. Members are expected to show up with a real answer, not a reaction or a
+          pitch.
+        </p>
+        <p class="para">
+          <strong>THE TABLES.</strong> Meetups are randomly matched and kept atomic: three or
+          four people around one table, never more. Seven signups become one table of three and
+          one of four. Small enough that everyone speaks and the conversation goes somewhere
+          real.
         </p>
       </section>
 
