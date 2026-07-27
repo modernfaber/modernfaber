@@ -17,63 +17,94 @@ const signaturePaths = [
 // Centre lines of the strokes above, recovered by skeletonising the artwork.
 // They are never painted — each is a nib in the mask that uncovers the ink it
 // runs under, so the reveal follows the pen instead of sweeping across.
-// Ordered left to right, which is the order the words were written in.
+//
+// In the order the hand takes them, which is not the order skeletonising hands
+// back. That pass returns a graph: it breaks a letter wherever a stroke crosses
+// or branches, so the little loops and ticks come out as separate pieces that
+// would otherwise be drawn long after the pen had left. Each one is spliced
+// into its parent at the vertex the pen passes it on, and strokes captured
+// against the direction of writing are reversed, so nothing ever fills in
+// behind the nib. The bar across the top of the F is last, the way a crossing
+// stroke is written: the skeleton had it in two halves either side of the stem
+// it crosses, drawn several strokes apart.
 const signatureNibs = [
-  "M25.8 79.7L24.7 78.7L24.3 77.9L24.3 75.1L25.7 71.9L28.3 68.2L31.5 65.1L35.2 62.7L38.2 62.4L39.5 63.4L39.8 67.4L38.8 71.7L36.3 78.9L32.0 88.7L32.0 89.6L33.3 90.1L40.2 77.7L44.5 70.9L49.3 65.6L51.0 65.2L51.3 65.9L51.0 69.2L44.3 88.6L44.3 91.1L44.7 91.4L45.5 91.2L58.0 73.7L62.7 68.7L64.0 68.4L64.3 69.2L64.0 71.6L59.2 83.9L56.2 94.1L55.8 98.1L56.3 99.6L57.2 100.4",
-  "M29.0 97.7L31.8 91.4L31.5 90.7L31.8 89.6",
-  "M32.0 91.1L33.0 90.6L33.0 90.1L32.3 89.7",
-  "M46.8 67.9L48.8 65.9",
-  "M64.8 83.1L64.0 84.1L63.3 86.1L63.2 87.1L63.8 88.6L64.5 88.9L66.2 88.6L67.8 86.7L68.3 84.9",
-  "M67.2 81.2L66.3 82.9L66.5 83.9L67.8 84.7L69.0 84.6",
-  "M68.2 80.9L69.0 81.4L69.3 82.6L69.2 84.6L69.5 84.7L72.7 84.6L75.7 81.6L77.3 81.4L79.0 82.2",
-  "M72.5 84.7L72.0 86.7L72.0 88.1L72.5 88.7L74.0 88.6L77.2 85.6L78.3 85.2",
+  "M25.8 79.7L24.7 78.7L24.3 77.9L24.3 75.1L25.7 71.9L28.3 68.2L31.5 65.1L35.2 62.7L38.2 62.4L39.5 63.4L39.8 67.4L38.8 71.7L36.3 78.9L32 88.7L32 89.6",
+  "M31.8 89.6L31.5 90.7L31.8 91.4L29 97.7",
+  "M32.3 89.7L33 90.1L33 90.6L32 91.1",
+  "M32 89.6L33.3 90.1L40.2 77.7L44.5 70.9L49.3 65.6",
+  "M48.8 65.9L46.8 67.9",
+  "M49.3 65.6L51 65.2L51.3 65.9L51 69.2L44.3 88.6L44.3 91.1L44.7 91.4L45.5 91.2L58 73.7L62.7 68.7L64 68.4L64.3 69.2L64 71.6L59.2 83.9L56.2 94.1L55.8 98.1L56.3 99.6L57.2 100.4",
+  "M64.8 83.1L64 84.1L63.3 86.1L63.2 87.1L63.8 88.6L64.5 88.9L66.2 88.6L67.8 86.7L68.3 84.9",
+  "M69 84.6L67.8 84.7L66.5 83.9L66.3 82.9L67.2 81.2",
+  "M68.2 80.9L69 81.4L69.3 82.6L69.2 84.6L69.5 84.7L72.7 84.6",
+  "M72.5 84.7L72 86.7L72 88.1L72.5 88.7L74 88.6",
   "M74.8 88.1L76.7 86.2",
+  "M74 88.6L77.2 85.6L78.3 85.2",
+  "M72.7 84.6L75.7 81.6L77.3 81.4L79 82.2",
   "M79.8 81.4L79.8 79.9L82.2 73.4L84.2 69.6L86.2 67.1",
-  "M84.2 86.4L83.2 86.6L81.0 88.6L79.2 88.9L78.5 87.4L78.5 84.7L79.2 82.4L82.0 79.7L87.2 70.9L88.0 68.6L88.0 67.1L86.8 66.7",
-  "M85.0 85.1L85.3 83.4L87.5 81.1L89.0 80.9L89.3 81.2L89.3 82.7L88.0 84.2L87.0 84.9L85.0 85.2L84.3 85.9L84.5 87.9L85.2 88.6L87.0 88.7L90.3 87.1L93.3 84.1L93.7 83.2L96.8 83.2L96.8 84.9L95.0 89.1L95.0 89.9L96.5 90.6L99.8 87.4L101.7 86.6L102.3 85.2L102.0 84.7L102.2 83.7L103.2 81.2",
+  "M86.8 66.7L88 67.1L88 68.6L87.2 70.9L82 79.7L79.2 82.4L78.5 84.7L78.5 87.4L79.2 88.9L81 88.6L83.2 86.6L84.2 86.4",
+  "M85 85.1L85.3 83.4L87.5 81.1L89 80.9L89.3 81.2L89.3 82.7L88 84.2L87 84.9L85 85.2L84.3 85.9L84.5 87.9L85.2 88.6L87 88.7L90.3 87.1L93.3 84.1L93.7 83.2",
   "M93.5 83.1L93.3 81.4L94.7 79.1",
-  "M94.8 83.1L96.2 80.1L96.2 79.2L95.0 78.9",
-  "M101.3 88.6L101.5 86.9",
-  "M102.3 85.6L103.3 85.2L106.5 82.1L108.0 81.9L108.3 82.1L108.3 83.2L107.3 85.9L107.2 87.6L107.8 88.1L109.0 88.1L110.3 87.2L113.3 83.9",
-  "M118.5 81.7L124.2 79.9L124.3 78.4L129.7 66.1L130.0 64.4L132.0 63.1L133.2 59.2",
-  "M119.3 62.6L117.2 62.9L114.3 64.1L113.2 65.4L113.2 66.2L113.8 66.7L118.3 66.6L130.3 63.9",
-  "M122.7 83.4L122.0 83.9L119.0 90.7L117.0 97.7L117.2 98.9L118.2 98.7L119.2 97.9L121.7 92.6L123.2 86.7L123.0 80.6",
+  "M94.8 83.1L96.2 80.1L96.2 79.2L95 78.9",
+  "M93.7 83.2L96.8 83.2L96.8 84.9L95 89.1L95 89.9L96.5 90.6L99.8 87.4L101.7 86.6",
+  "M101.5 86.9L101.3 88.6",
+  "M101.7 86.6L102.3 85.2L102 84.7L102.2 83.7L103.2 81.2",
+  "M102.3 85.6L103.3 85.2L106.5 82.1L108 81.9L108.3 82.1L108.3 83.2L107.3 85.9L107.2 87.6L107.8 88.1L109 88.1L110.3 87.2L113.3 83.9",
+  "M133.2 59.2L132 63.1L130 64.4L129.7 66.1L124.3 78.4L124.2 79.9L118.5 81.7",
+  "M122.7 83.4L122 83.9L119 90.7L117 97.7L117.2 98.9L118.2 98.7L119.2 97.9L121.7 92.6L123.2 86.7L123 80.6",
   "M124.3 79.7L132.3 78.4L135.2 78.4",
-  "M132.2 63.1L139.3 61.6L145.8 60.7L150.8 61.2L152.2 62.6",
-  "M136.8 85.7L137.0 88.1L137.7 88.7L139.2 88.6L141.5 86.4L142.2 86.9L141.8 86.6",
-  "M137.8 82.4L136.5 81.7L135.2 81.7L134.0 82.2L132.3 84.1L131.3 86.1L131.2 87.7L132.0 88.7L133.3 88.4L135.5 86.1L137.0 85.4L138.3 82.1",
-  "M142.5 88.6L144.3 81.9L145.2 81.1L146.3 80.7L149.3 77.6L152.3 73.1L154.2 69.1L154.5 67.4L153.8 66.6L152.8 66.6L150.8 68.6L148.3 72.4L146.0 77.1L144.8 80.1L144.8 81.2",
-  "M143.2 85.9L144.8 85.6L147.3 82.9L148.7 82.1L149.8 82.4L150.5 84.7L153.8 84.4L155.0 85.2L156.2 85.1L157.5 84.4L159.2 82.6L159.2 81.2L158.0 80.9",
-  "M149.2 86.1L147.8 86.2L146.8 86.9L145.0 88.9L144.8 90.1L145.2 90.4L147.0 89.9L149.0 87.6L150.0 84.6",
-  "M154.2 84.9L154.3 87.7L155.2 88.6L157.0 88.6L158.0 88.4L160.2 87.1L163.2 83.9",
-  "M155.0 84.2L155.7 82.7L157.2 81.2",
+  "M137.8 82.4L136.5 81.7L135.2 81.7L134 82.2L132.3 84.1L131.3 86.1L131.2 87.7L132 88.7L133.3 88.4L135.5 86.1L137 85.4",
+  "M136.8 85.7L137 88.1L137.7 88.7L139.2 88.6L141.5 86.4L142.2 86.9L141.8 86.6",
+  "M137 85.4L138.3 82.1",
+  "M142.5 88.6L144.3 81.9L145.2 81.1L146.3 80.7L149.3 77.6L152.3 73.1L154.2 69.1L154.5 67.4L153.8 66.6L152.8 66.6L150.8 68.6L148.3 72.4L146 77.1L144.8 80.1L144.8 81.2",
+  "M143.2 85.9L144.8 85.6L147.3 82.9L148.7 82.1L149.8 82.4L150.5 84.7",
+  "M150 84.6L149 87.6L147 89.9L145.2 90.4L144.8 90.1L145 88.9L146.8 86.9L147.8 86.2L149.2 86.1",
+  "M150.5 84.7L153.8 84.4L155 85.2",
+  "M155 84.2L155.7 82.7L157.2 81.2",
+  "M155 85.2L156.2 85.1L157.5 84.4L159.2 82.6L159.2 81.2L158 80.9",
+  "M154.2 84.9L154.3 87.7L155.2 88.6L157 88.6L158 88.4L160.2 87.1L163.2 83.9",
   "M163.5 89.2L164.8 84.9L164.8 83.2L166.2 79.6",
-  "M165.0 84.9L166.5 84.4L168.5 82.6L170.2 81.7L176.8 80.2L191.0 79.9L193.5 80.4L193.8 80.9",
+  "M165 84.9L166.5 84.4L168.5 82.6L170.2 81.7L176.8 80.2L191 79.9L193.5 80.4L193.8 80.9",
+  "M119.3 62.6L117.2 62.9L114.3 64.1L113.2 65.4L113.2 66.2L113.8 66.7L118.3 66.6L130.3 63.9",
+  "M132.2 63.1L139.3 61.6L145.8 60.7L150.8 61.2L152.2 62.6",
 ];
 
-// Give every nib the same pen speed: time each one by its own length, so a long
-// sweep takes longer than a tick. Short strokes get a floor so they do not pop.
+// One pen speed for the whole signature: every nib is timed by its own length,
+// so a long sweep takes longer than a tick and the hand never changes pace.
+// The floor is a single frame, just enough that the shortest ticks are drawn
+// rather than snapped on.
 const SIGNATURE_START = 0.35;
 const SIGNATURE_DRAW_SECONDS = 2.4;
-const SIGNATURE_LIFT = 0.02;
+const SIGNATURE_MIN = 0.016;
+// A beat for lifting the pen, paid only where the next nib starts away from
+// where the last one ended. Splitting a stroke around a loop leaves nibs that
+// carry straight on from each other, and those must not pause.
+const SIGNATURE_LIFT = 0.06;
+const SIGNATURE_LIFT_GAP = 3;
 
-const nibLength = (d) => {
-  const points = d.slice(1).split("L").map((p) => p.split(" ").map(Number));
-  return points.reduce(
-    (total, [x, y], i) =>
-      i === 0 ? total : total + Math.hypot(x - points[i - 1][0], y - points[i - 1][1]),
-    0
-  );
-};
+const nibPoints = signatureNibs.map((d) =>
+  d.slice(1).split("L").map((p) => p.trim().split(/\s+/).map(Number))
+);
 
-const nibLengths = signatureNibs.map(nibLength);
+const gap = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
+const nibLengths = nibPoints.map((points) =>
+  points.reduce((total, p, i) => (i === 0 ? total : total + gap(p, points[i - 1])), 0)
+);
 const nibTotal = nibLengths.reduce((a, b) => a + b, 0);
 
 let penDownAt = SIGNATURE_START;
-const signatureTiming = nibLengths.map((length) => {
-  const duration = Math.max(0.06, (length / nibTotal) * SIGNATURE_DRAW_SECONDS);
+const signatureTiming = nibPoints.map((points, i) => {
+  const previous = nibPoints[i - 1];
+  if (previous && gap(points[0], previous[previous.length - 1]) > SIGNATURE_LIFT_GAP) {
+    penDownAt += SIGNATURE_LIFT;
+  }
+
+  const duration = Math.max(
+    SIGNATURE_MIN,
+    (nibLengths[i] / nibTotal) * SIGNATURE_DRAW_SECONDS
+  );
   const delay = penDownAt;
-  penDownAt += duration + SIGNATURE_LIFT;
+  penDownAt += duration;
   return `animation-delay:${delay.toFixed(3)}s;animation-duration:${duration.toFixed(3)}s`;
 });
 ---
