@@ -26,7 +26,9 @@ const signaturePaths = [
 // against the direction of writing are reversed, so nothing ever fills in
 // behind the nib. The bar across the top of the F is last, the way a crossing
 // stroke is written: the skeleton had it in two halves either side of the stem
-// it crosses, drawn several strokes apart.
+// it crosses, drawn several strokes apart. The stem is cut below that crossing
+// so the whole top of the F arrives in one go — its apex is drawn with the bar,
+// not earlier with the stem, which would show a stub of the bar halfway through.
 const signatureNibs = [
   "M25.8 79.7L24.7 78.7L24.3 77.9L24.3 75.1L25.7 71.9L28.3 68.2L31.5 65.1L35.2 62.7L38.2 62.4L39.5 63.4L39.8 67.4L38.8 71.7L36.3 78.9L32 88.7L32 89.6",
   "M31.8 89.6L31.5 90.7L31.8 91.4L29 97.7",
@@ -50,7 +52,7 @@ const signatureNibs = [
   "M101.5 86.9L101.3 88.6",
   "M101.7 86.6L102.3 85.2L102 84.7L102.2 83.7L103.2 81.2",
   "M102.3 85.6L103.3 85.2L106.5 82.1L108 81.9L108.3 82.1L108.3 83.2L107.3 85.9L107.2 87.6L107.8 88.1L109 88.1L110.3 87.2L113.3 83.9",
-  "M133.2 59.2L132 63.1L130 64.4L129.7 66.1L124.3 78.4L124.2 79.9L118.5 81.7",
+  "M129.7 66.1L124.3 78.4L124.2 79.9L118.5 81.7",
   "M122.7 83.4L122 83.9L119 90.7L117 97.7L117.2 98.9L118.2 98.7L119.2 97.9L121.7 92.6L123.2 86.7L123 80.6",
   "M124.3 79.7L132.3 78.4L135.2 78.4",
   "M137.8 82.4L136.5 81.7L135.2 81.7L134 82.2L132.3 84.1L131.3 86.1L131.2 87.7L132 88.7L133.3 88.4L135.5 86.1L137 85.4",
@@ -66,6 +68,7 @@ const signatureNibs = [
   "M163.5 89.2L164.8 84.9L164.8 83.2L166.2 79.6",
   "M165 84.9L166.5 84.4L168.5 82.6L170.2 81.7L176.8 80.2L191 79.9L193.5 80.4L193.8 80.9",
   "M119.3 62.6L117.2 62.9L114.3 64.1L113.2 65.4L113.2 66.2L113.8 66.7L118.3 66.6L130.3 63.9",
+  "M129.7 66.1L130 64.4L132 63.1L133.2 59.2",
   "M132.2 63.1L139.3 61.6L145.8 60.7L150.8 61.2L152.2 62.6",
 ];
 
