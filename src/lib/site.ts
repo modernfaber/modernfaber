@@ -1,7 +1,8 @@
 export const siteName = "Modern Faber";
 
-// Admission is referral-only, so this inbox belongs to the faber doing the
-// introducing — never to the person hoping to get in.
+// Names reach the room by referral, but the inbox is open either way: a member
+// putting someone forward and someone making their own case want the same three
+// lines, so the template asks for the work rather than for an introduction.
 export const referralEmailAddress = "john@fastrepl.com";
 
 const referralEmailParams = new URLSearchParams({
@@ -9,13 +10,11 @@ const referralEmailParams = new URLSearchParams({
   body: [
     "Hi John,",
     "",
-    "I want to bring someone to the table.",
+    "Who this is about:",
     "",
-    "Who they are:",
+    "The work:",
     "",
-    "Work that convinced me:",
-    "",
-    "Why I am vouching:",
+    "Why it belongs at the bench:",
   ].join("\n"),
 });
 
