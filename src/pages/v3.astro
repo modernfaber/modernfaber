@@ -1,5 +1,5 @@
 ---
-import { inquiryEmailAddress, inquiryEmailUrl } from "../lib/site";
+import { referralEmailAddress, referralEmailUrl } from "../lib/site";
 ---
 
 <!doctype html>
@@ -126,8 +126,8 @@ import { inquiryEmailAddress, inquiryEmailUrl } from "../lib/site";
       </div>
 
       <p class="join">
-        <a href={inquiryEmailUrl}>become a modern faber &rarr;</a><br />
-        <span class="kicker">{inquiryEmailAddress}</span>
+        <a href={referralEmailUrl}>vouch for a modern faber &rarr;</a><br />
+        <span class="kicker">referral only &mdash; {referralEmailAddress}</span>
       </p>
     </main>
   </body>

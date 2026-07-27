@@ -1,5 +1,5 @@
 ---
-import { inquiryEmailAddress, inquiryEmailUrl } from "../lib/site";
+import { referralEmailAddress, referralEmailUrl } from "../lib/site";
 ---
 
 <!doctype html>
@@ -124,7 +124,8 @@ import { inquiryEmailAddress, inquiryEmailUrl } from "../lib/site";
 
       <p>
         <span class="prompt">$</span> <span class="cmd">join</span><br />
-        <span class="out">&rarr; mail <a href={inquiryEmailUrl}>{inquiryEmailAddress}</a> with recent work</span>
+        <span class="out">&rarr; permission denied: referral required</span><br />
+        <span class="out">&rarr; a faber vouches for you at <a href={referralEmailUrl}>{referralEmailAddress}</a></span>
       </p>
 
       <p><span class="prompt">$</span> <span class="cursor" aria-hidden="true"></span></p>

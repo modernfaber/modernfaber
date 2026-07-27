@@ -1,18 +1,22 @@
 export const siteName = "Modern Faber";
 
-export const inquiryEmailAddress = "john@fastrepl.com";
+// Admission is referral-only, so this inbox belongs to the faber doing the
+// introducing — never to the person hoping to get in.
+export const referralEmailAddress = "john@fastrepl.com";
 
-const inquiryEmailParams = new URLSearchParams({
-  subject: "Modern Faber inquiry",
+const referralEmailParams = new URLSearchParams({
+  subject: "Modern Faber referral",
   body: [
     "Hi John,",
     "",
-    "I want to inquire about Modern Faber.",
+    "I want to bring someone to the table.",
     "",
-    "Recent work:",
+    "Who they are:",
     "",
-    "Why I want in:",
+    "Work that convinced me:",
+    "",
+    "Why I am vouching:",
   ].join("\n"),
 });
 
-export const inquiryEmailUrl = `mailto:${inquiryEmailAddress}?${inquiryEmailParams.toString()}`;
+export const referralEmailUrl = `mailto:${referralEmailAddress}?${referralEmailParams.toString()}`;

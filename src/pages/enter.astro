@@ -1,5 +1,5 @@
 ---
-import { inquiryEmailAddress, inquiryEmailUrl } from "../lib/site";
+import { referralEmailAddress, referralEmailUrl } from "../lib/site";
 ---
 
 <!doctype html>
@@ -9,12 +9,12 @@ import { inquiryEmailAddress, inquiryEmailUrl } from "../lib/site";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Opening your email client for a Modern Faber inquiry."
+      content="Opening your email client to refer someone to Modern Faber."
     />
     <meta name="robots" content="noindex, nofollow" />
     <meta name="theme-color" content="#f7f7f8" />
     <title>Enter | Modern Faber</title>
-    <meta http-equiv="refresh" content={`0;url=${inquiryEmailUrl}`} />
+    <meta http-equiv="refresh" content={`0;url=${referralEmailUrl}`} />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
@@ -66,8 +66,8 @@ import { inquiryEmailAddress, inquiryEmailUrl } from "../lib/site";
         }
       }
     </style>
-    <script define:vars={{ inquiryEmailUrl }}>
-      window.location.href = inquiryEmailUrl;
+    <script define:vars={{ referralEmailUrl }}>
+      window.location.href = referralEmailUrl;
     </script>
   </head>
   <body>
@@ -77,7 +77,7 @@ import { inquiryEmailAddress, inquiryEmailUrl } from "../lib/site";
       <p>OPENING YOUR EMAIL CLIENT...</p>
       <p>
         If nothing happens:<br />
-        &nbsp;- [Email](<a href={inquiryEmailUrl}>{inquiryEmailAddress}</a>)
+        &nbsp;- [Email](<a href={referralEmailUrl}>{referralEmailAddress}</a>)
       </p>
     </main>
   </body>
