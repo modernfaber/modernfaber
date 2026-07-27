@@ -232,7 +232,8 @@ const signatureTiming = nibLengths.map((length) => {
         fill: #dcdce0;
       }
 
-      /* Wide enough to uncover the full pen width it runs under. */
+      /* Wide enough to uncover the full pen width it runs under. Left fully
+         drawn by default, so without scripting the signature is simply there. */
       .sig-nib {
         fill: none;
         stroke: #ffffff;
@@ -240,12 +241,23 @@ const signatureTiming = nibLengths.map((length) => {
         stroke-linecap: round;
         stroke-linejoin: round;
         stroke-dasharray: 1;
+        stroke-dashoffset: 0;
+      }
+
+      /* Armed by the script below: blank the nibs so the pen has something to
+         uncover. Hidden until its turn, else the round cap uncovers a dot of
+         ink before the stroke reaches it. */
+      .signature.armed .sig-nib {
         stroke-dashoffset: 1;
-        /* Hidden until its turn, else the round cap uncovers a dot of ink. */
         visibility: hidden;
-        animation-name: sig-draw;
         animation-timing-function: linear;
         animation-fill-mode: forwards;
+      }
+
+      /* Set once the signature has scrolled into view; the per-nib delays in
+         the inline styles take it from there. */
+      .signature.drawing .sig-nib {
+        animation-name: sig-draw;
       }
 
       @keyframes sig-draw {
@@ -265,7 +277,8 @@ const signatureTiming = nibLengths.map((length) => {
           animation: none;
         }
 
-        .sig-nib {
+        /* Beats the armed state, so the signature is never held back. */
+        .signature.armed .sig-nib {
           animation: none;
           stroke-dashoffset: 0;
           visibility: visible;
@@ -392,6 +405,26 @@ const signatureTiming = nibLengths.map((length) => {
           </g>
         </g>
       </svg>
+
+      <!-- Inline so the nibs are blanked in the same parse as the SVG: deferred
+           this would flash the finished signature before arming it. -->
+      <script is:inline>
+        (() => {
+          const signature = document.querySelector(".signature");
+          signature.classList.add("armed");
+
+          const observer = new IntersectionObserver(
+            (entries) => {
+              if (!entries.some((entry) => entry.isIntersecting)) return;
+              signature.classList.add("drawing");
+              observer.disconnect();
+            },
+            { threshold: 0.35 }
+          );
+
+          observer.observe(signature);
+        })();
+      </script>
     </main>
   </body>
 </html>
