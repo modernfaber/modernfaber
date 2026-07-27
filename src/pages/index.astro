@@ -189,12 +189,16 @@ const signatureTiming = nibLengths.map((length) => {
         letter-spacing: 0.04em;
       }
 
+      /* Links stay ink-coloured; a grey underline is the only tell. */
       a {
-        color: #0000ee;
+        color: inherit;
+        text-decoration: underline;
+        text-decoration-color: #a9a9ae;
+        text-underline-offset: 3px;
       }
 
-      a:visited {
-        color: #551a8b;
+      a:hover {
+        text-decoration-color: #111111;
       }
 
       .cursor {
